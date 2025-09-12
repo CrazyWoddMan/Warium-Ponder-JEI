@@ -1,0 +1,42 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+issueTrackerURL = "https://github.com/CrazyWoddMan/Warium-Ponder/issues/"
+license="MIT"
+
+[[mods]]
+	modId="${mod_id}"
+	version="${mod_version}"
+	displayName="${mod_name}"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/warium-ponder"
+    logoFile = "icon.png"
+	authors="${mod_authors}" 
+	description='''${mod_description}'''
+    mixins = "mixins.${mod_id}.json"
+
+[[dependencies.warium_ponder]]
+    modId="forge"
+    mandatory=true 
+    versionRange="${loader_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.warium_ponder]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.warium_ponder]]
+    modId="crusty_chunks"
+    mandatory=true 
+    versionRange="[1.1.0,)"
+    ordering="AFTER"
+    side="CLIENT"
+
+[[dependencies.warium_ponder]]
+    modId="ponderjs"
+    mandatory=true 
+    versionRange="[1.4.0,)"
+    ordering="AFTER"
+    side="CLIENT"
