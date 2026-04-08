@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "minecraft:dirt"
+  },
+  "results": [
+    {
+      "item": "minecraft:clay_ball",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:nitrate",
+      "chance": 40
+    },
+    {
+      "item": "minecraft:sand",
+      "chance": 3
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "chance": 2
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "warium_ponder_jei:centrifuge",
+  "ingredient": {
+    "tag": "forge:dusts/uranium"
+  },
+  "processtime": 200,
+  "results": [
+    {
+      "item": "crusty_chunks:uranium_enriched_tiny_dust"
+    },
+    {
+      "item": "crusty_chunks:uranium_depleted_dust",
+      "chance": 80
+    },
+    {
+      "item": "crusty_chunks:lead_dust",
+      "chance": 5
+    }
+  ]
+}

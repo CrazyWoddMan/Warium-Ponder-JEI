@@ -1,0 +1,16 @@
+{
+  "type": "warium_ponder_jei:centrifuge",
+  "ingredient": {
+    "item": "crusty_chunks:aluminate_dust"
+  },
+  "processtime": 1,
+  "results": [
+    {
+      "item": "crusty_chunks:filtered_aluminate_dust"
+    },
+    {
+      "item": "minecraft:red_sand",
+      "chance": 25
+    }
+  ]
+}

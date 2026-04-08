@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:alloy_furnace",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/zinc"
+    },
+    {
+      "tag": "forge:dusts/copper"
+    }
+  ],
+  "result": "crusty_chunks:brass_ingot"
+}

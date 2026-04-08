@@ -1,0 +1,19 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/beryllium"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:beryllium_dust"
+    },
+    {
+      "item": "crusty_chunks:beryllium_dust",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:lithium_nugget",
+      "chance": 5
+    }
+  ]
+}

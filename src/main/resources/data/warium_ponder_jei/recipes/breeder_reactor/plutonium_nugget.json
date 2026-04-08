@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:breeder_reactor",
+  "ingredient": {
+    "item": "crusty_chunks:uranium_enriched_dust"
+  },
+  "processtime": 400,
+  "result": "crusty_chunks:plutonium_nugget"
+}

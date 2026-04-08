@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:mechanical_fabricator",
+  "ingredient": {
+    "tag": "forge:storage_blocks/aluminum"
+  },
+  "processtime": 150,
+  "results": [
+    {
+      "item": "crusty_chunks:precision_component"
+    }
+  ]
+}

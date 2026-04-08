@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:refinery",
+  "ingredient": {
+    "tag": "warium_ponder_jei:crude_oil"
+  },
+  "results": [
+    {
+      "fluid": "crusty_chunks:oil",
+      "amount": 250
+    },
+    {
+      "fluid": "crusty_chunks:diesel",
+      "amount": 250
+    },
+    {
+      "fluid": "crusty_chunks:kerosene",
+      "amount": 250
+    },
+    {
+      "fluid": "crusty_chunks:petrolium",
+      "amount": 250
+    }
+  ]
+}

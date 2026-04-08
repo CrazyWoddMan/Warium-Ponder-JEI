@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:chemical_digester",
+  "ingredient": {
+    "item": "crusty_chunks:bauxite_dust"
+  },
+  "catalyst": {
+    "item": "crusty_chunks:nitrate",
+    "consume_chance": 6
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:aluminate_dust",
+      "chance": 80
+    },
+    {
+      "item": "minecraft:red_sand",
+      "chance": 5
+    },
+    {
+      "item": "minecraft:sand",
+      "chance": 5
+    }
+  ]
+}

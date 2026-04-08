@@ -1,0 +1,20 @@
+{
+  "type": "warium_ponder_jei:chemical_digester",
+  "ingredient": {
+    "item": "crusty_chunks:pyrochlore_dust"
+  },
+  "catalyst": {
+    "item": "crusty_chunks:nitrate",
+    "consume_chance": 6
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:filtered_pyrochlore_dust",
+      "chance": 80
+    },
+    {
+      "item": "minecraft:quartz",
+      "chance": 5
+    }
+  ]
+}

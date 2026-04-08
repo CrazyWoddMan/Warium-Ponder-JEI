@@ -1,0 +1,23 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/uranium"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:uranium_neutraltiny_dust"
+    },
+    {
+      "item": "crusty_chunks:uranium_neutraltiny_dust",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:uranium_depleted_tiny_dust",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:lead_dust",
+      "chance": 15
+    }
+  ]
+}

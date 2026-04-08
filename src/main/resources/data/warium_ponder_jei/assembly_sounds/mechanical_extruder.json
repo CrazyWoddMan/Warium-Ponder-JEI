@@ -1,0 +1,6 @@
+{
+  "ingredient": {
+    "item": "crusty_chunks:mechanical_extruder"
+  },
+  "sound": "block.grindstone.use"
+}

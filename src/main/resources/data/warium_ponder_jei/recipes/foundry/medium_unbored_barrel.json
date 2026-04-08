@@ -1,0 +1,11 @@
+{
+  "type": "crusty_chunks:foundry",
+  "template": {
+    "item": "crusty_chunks:medium_barrel_template"
+  },
+  "ingredient": {
+    "tag": "forge:ingots/steel",
+    "count": 3
+  },
+  "result": "crusty_chunks:medium_unbored_barrel"
+}

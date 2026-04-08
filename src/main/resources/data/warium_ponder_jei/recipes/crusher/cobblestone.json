@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:cobblestone"
+  },
+  "results": [
+    {
+      "item": "minecraft:gravel",
+      "chance": 90
+    },
+    {
+      "item": "minecraft:flint",
+      "chance": 10
+    },
+    {
+      "item": "minecraft:sand",
+      "chance": 10
+    },
+    {
+      "item": "crusty_chunks:nitrate",
+      "chance": 10
+    }
+  ]
+}

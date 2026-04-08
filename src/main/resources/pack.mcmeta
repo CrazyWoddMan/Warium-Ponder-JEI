@@ -1,7 +1,7 @@
 {
   "pack": {
     "description": {
-      "text": "Warium Ponders resource"
+      "text": "${mod_name} resource"
     },
     "pack_format": 15
   }

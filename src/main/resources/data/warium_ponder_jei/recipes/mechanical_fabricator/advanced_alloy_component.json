@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:mechanical_fabricator",
+  "ingredient": {
+    "item": "crusty_chunks:advanced_alloy_ingot"
+  },
+  "processtime": 150,
+  "results": [
+    {
+      "item": "crusty_chunks:advanced_alloy_component"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/gold"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:gold_dust"
+    },
+    {
+      "item": "crusty_chunks:gold_dust",
+      "chance": 25
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "chance": 8
+    }
+  ]
+}

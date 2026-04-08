@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:gravel"
+  },
+  "results": [
+    {
+      "item": "minecraft:sand",
+      "chance": 90
+    },
+    {
+      "item": "minecraft:flint",
+      "chance": 10
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "chance": 10
+    },
+    {
+      "item": "crusty_chunks:nitrate",
+      "chance": 15
+    }
+  ]
+}

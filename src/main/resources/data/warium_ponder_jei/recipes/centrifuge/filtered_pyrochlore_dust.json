@@ -1,0 +1,24 @@
+{
+  "type": "warium_ponder_jei:centrifuge",
+  "ingredient": {
+    "item": "crusty_chunks:filtered_pyrochlore_dust"
+  },
+  "processtime": 20,
+  "results": [
+    {
+      "item": "crusty_chunks:niobium_tiny_dust"
+    },
+    {
+      "item": "crusty_chunks:niobium_tiny_dust",
+      "chance": 25
+    },
+    {
+      "item": "crusty_chunks:sulfur",
+      "chance": 10
+    },
+    {
+      "item": "minecraft:quartz",
+      "chance": 10
+    }
+  ]
+}

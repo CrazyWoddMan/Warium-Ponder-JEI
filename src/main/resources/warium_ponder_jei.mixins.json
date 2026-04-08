@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "${mod_group_id}.mixins",
+  "refmap": "${mod_id}.mixins.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BlastFurnaceRecipesProvider",
+    "FoundryRecipesProvider",
+    "MineralGrinderRecipesProvider",
+    "RefineryRecipesProvider",
+    "CrusherRecipesProvider",
+    "DigesterRecipesProvider",
+    "FabricatorRecipesProvider",
+    "CentrifugeRecipesProvider",
+    "BreederReactorRecipesProvider",
+    "AssemblyMachineRecipesProvider"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

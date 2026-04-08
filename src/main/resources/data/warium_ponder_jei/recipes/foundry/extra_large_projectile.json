@@ -1,0 +1,11 @@
+{
+  "type": "crusty_chunks:foundry",
+  "template": {
+    "item": "crusty_chunks:extra_large_projectile_template"
+  },
+  "ingredient": {
+    "tag": "forge:ingots/lead",
+    "count": 2
+  },
+  "result": "crusty_chunks:extra_large_projectile"
+}

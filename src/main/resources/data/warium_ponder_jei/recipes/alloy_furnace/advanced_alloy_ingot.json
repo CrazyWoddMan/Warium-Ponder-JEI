@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:alloy_furnace",
+  "ingredients": [
+    {
+      "item": "crusty_chunks:compressed_advanced_mixture"
+    },
+    {
+      "item": "crusty_chunks:compressed_advanced_mixture"
+    }
+  ],
+  "result": "crusty_chunks:advanced_alloy_ingot"
+}

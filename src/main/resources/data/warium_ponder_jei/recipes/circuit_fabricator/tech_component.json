@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:circuit_fabricator",
+  "ingredient": {
+    "item": "crusty_chunks:unfabricated_tech_component"
+  },
+  "processtime": 150,
+  "results": [
+    {
+      "item": "crusty_chunks:tech_component"
+    }
+  ]
+}

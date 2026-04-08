@@ -1,0 +1,12 @@
+{
+  "type": "warium_ponder_jei:centrifuge",
+  "ingredient": {
+    "tag": "forge:dusts/lithium"
+  },
+  "processtime": 200,
+  "results": [
+    {
+      "item": "crusty_chunks:enriched_lithium_nugget"
+    }
+  ]
+}

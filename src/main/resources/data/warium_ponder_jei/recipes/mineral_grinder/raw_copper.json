@@ -1,0 +1,15 @@
+{
+  "type": "warium_ponder_jei:mineral_grinder",
+  "ingredient": {
+    "tag": "forge:raw_materials/copper"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:copper_dust"
+    },
+    {
+      "item": "crusty_chunks:copper_dust",
+      "chance": 25
+    }
+  ]
+}

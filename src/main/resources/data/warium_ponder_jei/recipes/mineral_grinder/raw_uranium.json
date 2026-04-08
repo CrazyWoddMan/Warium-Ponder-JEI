@@ -1,0 +1,15 @@
+{
+  "type": "warium_ponder_jei:mineral_grinder",
+  "ingredient": {
+    "tag": "forge:raw_materials/uranium"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:uranium_neutraltiny_dust"
+    },
+    {
+      "item": "crusty_chunks:uranium_depleted_tiny_dust",
+      "chance": 25
+    }
+  ]
+}

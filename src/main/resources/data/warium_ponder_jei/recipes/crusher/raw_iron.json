@@ -1,0 +1,19 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/iron"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:iron_dust"
+    },
+    {
+      "item": "crusty_chunks:iron_dust",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:nickel_dust",
+      "chance": 10
+    }
+  ]
+}

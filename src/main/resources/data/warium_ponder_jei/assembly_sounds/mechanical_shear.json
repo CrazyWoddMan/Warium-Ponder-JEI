@@ -1,0 +1,6 @@
+{
+  "ingredient": {
+    "item": "crusty_chunks:mechanical_shear"
+  },
+  "sound": "ui.stonecutter.take_result"
+}

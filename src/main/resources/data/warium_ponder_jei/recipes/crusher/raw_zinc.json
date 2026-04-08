@@ -1,0 +1,19 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/zinc"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:zinc_dust"
+    },
+    {
+      "item": "crusty_chunks:zinc_dust",
+      "chance": 33
+    },
+    {
+      "item": "crusty_chunks:nickel_dust",
+      "chance": 2
+    }
+  ]
+}

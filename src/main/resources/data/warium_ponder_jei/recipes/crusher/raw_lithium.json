@@ -1,0 +1,19 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:raw_materials/lithium"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:lithium_dust"
+    },
+    {
+      "item": "crusty_chunks:lithium_dust",
+      "chance": 25
+    },
+    {
+      "item": "crusty_chunks:lithium_nugget",
+      "chance": 15
+    }
+  ]
+}

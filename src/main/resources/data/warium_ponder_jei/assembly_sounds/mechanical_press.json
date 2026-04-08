@@ -1,0 +1,6 @@
+{
+  "ingredient": {
+    "item": "crusty_chunks:mechanical_press"
+  },
+  "sound": "block.anvil.place"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:breeder_reactor",
+  "ingredient": {
+    "item": "crusty_chunks:enriched_lithium_ingot"
+  },
+  "processtime": 400,
+  "result": "crusty_chunks:tiny_lithium_deuteride"
+}

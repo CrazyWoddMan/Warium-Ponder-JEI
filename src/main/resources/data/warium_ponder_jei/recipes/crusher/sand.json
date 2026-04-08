@@ -1,0 +1,20 @@
+{
+  "type": "warium_ponder_jei:crusher",
+  "ingredient": {
+    "tag": "forge:sand/colorless"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:chlorine_dust",
+      "chance": 10
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "chance": 20
+    },
+    {
+      "item": "crusty_chunks:nitrate",
+      "chance": 5
+    }
+  ]
+}

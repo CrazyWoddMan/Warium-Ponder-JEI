@@ -1,0 +1,10 @@
+{
+  "type": "crusty_chunks:foundry",
+  "template": {
+    "item": "crusty_chunks:component_foundry_template"
+  },
+  "ingredient": {
+    "tag": "forge:ingots/steel"
+  },
+  "result": "crusty_chunks:cast_component"
+}

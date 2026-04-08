@@ -1,0 +1,15 @@
+{
+  "type": "warium_ponder_jei:mineral_grinder",
+  "ingredient": {
+    "tag": "forge:raw_materials/gold"
+  },
+  "results": [
+    {
+      "item": "crusty_chunks:gold_dust"
+    },
+    {
+      "item": "crusty_chunks:gold_dust",
+      "chance": 25
+    }
+  ]
+}
