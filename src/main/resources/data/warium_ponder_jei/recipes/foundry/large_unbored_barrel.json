@@ -1,5 +1,5 @@
 {
-  "type": "crusty_chunks:foundry",
+  "type": "warium_ponder_jei:foundry",
   "template": {
     "item": "crusty_chunks:large_barrel_template"
   },
