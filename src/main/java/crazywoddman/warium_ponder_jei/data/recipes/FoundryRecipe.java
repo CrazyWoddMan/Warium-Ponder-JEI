@@ -53,7 +53,7 @@ public class FoundryRecipe extends SimpleRecipe<Item> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, FoundryRecipe recipe) {
             recipe.ingredients[0].toNetwork(buffer);
-            recipe.ingredients[1].toNetwork(buffer);
+            new CountableIngredient(recipe.ingredients[1], recipe.count).toNetwork(buffer);
             buffer.writeItem(new ItemStack(recipe.result));
         }
     }
