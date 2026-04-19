@@ -53,6 +53,13 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
+        name 'Conditional Mixin'
+        url 'https://maven.fallenbreath.me/releases'
+        content {
+            includeGroup 'me.fallenbreath'
+        }
+    }
+    maven {
         name 'Create, Ponder, Flywheel (6.0)'
         url = 'https://maven.createmod.net'
     }
@@ -85,7 +92,10 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:1.20.1-47.4.0"
+    
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    jarJar(group: 'me.fallenbreath', name: 'conditional-mixin-forge', version: '[0.6.4,)')
+    compileOnly fg.deobf("me.fallenbreath:conditional-mixin-forge:0.6.4")
 
     compileOnly fg.deobf("blank:warium_additions-${warium_additions_version}-all:${warium_additions_version}")
 

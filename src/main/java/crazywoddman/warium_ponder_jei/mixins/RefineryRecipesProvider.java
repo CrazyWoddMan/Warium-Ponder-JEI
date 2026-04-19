@@ -14,9 +14,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -41,12 +45,14 @@ public class RefineryRecipesProvider {
             return;
 
         WariumPonderJeiUtil.heatedBlockProcedure(world, pos, 4).ifPresent(blockEntity -> {
-            boolean[] inputIsItem = {false};
+            MutableBoolean inputIsFluid = new MutableBoolean();
 
-            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(ihandler -> blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(fhandler -> {
+            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(ihandler -> {
                 ItemStack input = ihandler.getStackInSlot(0);
+                LazyOptional<IFluidHandler> fhandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
+                FluidStack fluid = fhandler.map(handler -> handler.getFluidInTank(0)).orElse(null);
                 WariumPonderJeiUtil
-                .findRecipe(level, WariumpPonderJeiRecipes.REFINERY_TYPE, r -> recipeMatch(r, input, fhandler.getFluidInTank(0), inputIsItem))
+                .findRecipe(level, WariumpPonderJeiRecipes.REFINERY_TYPE, r -> recipeMatch(r, input, fluid, inputIsFluid))
                 .ifPresent(recipe -> {
                     BlockPos topTower;
                     
@@ -75,12 +81,13 @@ public class RefineryRecipesProvider {
                     for (int i = 0; i < recipe.result.length; i++)
                         caps[i].fill(recipe.result[i], FluidAction.EXECUTE);
 
-                    if (inputIsItem[0]) {
+                    if (inputIsFluid.isTrue())
+                        fhandler.resolve().get().drain(1000, FluidAction.EXECUTE);
+                    else {
                         if (input.getItem() instanceof BucketItem)
                             ihandler.setStackInSlot(0, new ItemStack(Items.BUCKET));
                         else input.shrink(1);
                     }
-                    else fhandler.drain(1000, FluidAction.EXECUTE);
 
                     level.playSound(
                         null,
@@ -100,19 +107,20 @@ public class RefineryRecipesProvider {
                         0.1
                     );
                 });
-            }));
+            });
         });
     }
 
-    private static boolean recipeMatch(RefineryRecipe recipe, ItemStack stack, FluidStack fluid, boolean[] inputIsItem) {
-        if (!stack.isEmpty() && recipe.test(stack)) {
-            inputIsItem[0] = true;
+    private static boolean recipeMatch(RefineryRecipe recipe, ItemStack stack, @Nullable FluidStack fluid, MutableBoolean inputIsFluid) {
+        if (!stack.isEmpty() && recipe.test(stack))
             return true;
-        }
 
-        for (ItemStack item : recipe.ingredients[0].getItems())
-            if (item.getItem() instanceof BucketItem bucket && fluid.getFluid() == bucket.getFluid() && fluid.getAmount() >= 1000)
-                return true;
+        if (fluid != null)
+            for (ItemStack item : recipe.ingredients[0].getItems())
+                if (item.getItem() instanceof BucketItem bucket && fluid.getFluid() == bucket.getFluid() && fluid.getAmount() >= 1000) {
+                    inputIsFluid.setTrue();
+                    return true;
+                }
 
         return false;
     }
