@@ -53,46 +53,14 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name 'Create, Ponder, Flywheel (6.0)'
-        url = 'https://maven.createmod.net'
-    }
-    maven {
-        name 'Registrate'
-        url 'https://maven.tterrag.com'
-        content {
-            includeGroup 'com.tterrag.registrate'
-        }
-    }
-    maven {
-        name = 'GeckoLib (for Warium runtime)'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-        content {
-            includeGroupByRegex("software\\.bernie.*")
-        }
-    }
-    maven {
         name 'JEI'
         url 'https://maven.blamejared.com'
         content {
             includeGroup 'mezz.jei'
         }
     }
-    maven {
-        name 'Valkyrien Skies'
-        url 'https://maven.valkyrienskies.org'
-        content {
-            includeGroup 'org.valkyrienskies'
-        }
-    }
-    maven {
-        name = 'Kotlin for Forge'
-        url = 'https://thedarkcolour.github.io/KotlinForForge'
-        content {
-            includeGroup 'thedarkcolour'
-        }
-    }
     flatDir {
-        name 'Warium, Valkyrien Warium'
+        name 'Warium'
         dir 'libs'
     }
 }
@@ -104,20 +72,10 @@ dependencies {
 
     compileOnly fg.deobf("blank:warium_additions-${warium_additions_version}-all:${warium_additions_version}")
 
-    runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${mc_version}:4.8.2")
-    implementation fg.deobf("blank:Warium-${warium_version}:${warium_version}")
-    implementation fg.deobf("blank:WariumVS-${wariumvs_version}:${wariumvs_version}")
-    runtimeOnly fg.deobf("org.valkyrienskies:valkyrienskies-120-forge:2.4.11") {transitive = false}
-    runtimeOnly fg.deobf("thedarkcolour:kotlinforforge:4.12.0")
+    compileOnly fg.deobf("blank:Warium-${warium_version}:${warium_version}")
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-
-    jarJar(group: 'net.createmod.ponder', name: 'Ponder-Forge-' + mc_version, version: '[1.0.92,)') {transitive = false}
-    implementation fg.deobf("net.createmod.ponder:Ponder-Forge-${mc_version}:1.0.92")
-    jarJar(group: 'dev.engine-room.flywheel', name: 'flywheel-forge-' + mc_version, version: '[1.0.5,)')
-    runtimeOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-${mc_version}:1.0.5")
-    compileOnly fg.deobf("dev.engine-room.flywheel:flywheel-forge-api-${mc_version}:1.0.5")
 }
 
 mixin {
@@ -137,8 +95,6 @@ tasks.named('processResources', ProcessResources).configure {
             mod_authors: mod_authors,
             mod_description: mod_description,
             warium_version: warium_version,
-            wariumvs_version: wariumvs_version,
-            create_version: create_version,
             jei_version: jei_version,
             warium_additions_version: warium_additions_version
     ]
@@ -169,6 +125,10 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
+tasks.named('jarJar', Jar).configure {
+    archiveClassifier = 'ponderless'
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs += ["-Xlint:-removal"]
@@ -181,7 +141,7 @@ tasks.register('cleanLibs', Delete) {
 tasks.register('copyModJar', Copy) {
     dependsOn build
     from("$buildDir/libs/") {
-        include "*-all.jar"
+        include "*-ponderless.jar"
     }
     into System.getenv('MC_TESTS_DIR')
     onlyIf {

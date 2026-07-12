@@ -19,17 +19,18 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.ModList;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.network.NetworkHandler;
 
 @Mixin(FluidDrainProcedure.class)
 public class RefineryTowerDrainPatch {
+    private static final boolean WARIUM_ADDITIONS = ModList.get().isLoaded("warium_additions");
 
     @Inject(
         method = "execute",
@@ -38,7 +39,7 @@ public class RefineryTowerDrainPatch {
         cancellable = true
     )
     private static void injectExecute(LevelAccessor world, double x, double y, double z, Entity entity, CallbackInfo ci) {
-        if (WariumPonderJei.WARIUM_ADDITIONS)
+        if (WARIUM_ADDITIONS)
             return;
         
         if (NetworkHandler.serverHasMod)
