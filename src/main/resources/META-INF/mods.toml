@@ -30,22 +30,15 @@ license="MIT"
 [[dependencies.${mod_id}]]
     modId="crusty_chunks"
     mandatory=true 
-    versionRange="[${warium_version},)"
+    versionRange="*"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
-    modId="ponder"
-    mandatory=true
-    versionRange="[0,)"
-    ordering="NONE"
-    side="CLIENT"
-	
-[[dependencies.${mod_id}]]
     modId="create"
     mandatory=false
     versionRange="[${create_version},)"
-    ordering="AFTER"
+    ordering="NONE"
     side="BOTH"
 	
 [[dependencies.${mod_id}]]

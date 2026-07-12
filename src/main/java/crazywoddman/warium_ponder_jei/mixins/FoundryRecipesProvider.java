@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(FoundryBlock.class)
 public class FoundryRecipesProvider {
@@ -34,8 +34,8 @@ public class FoundryRecipesProvider {
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z) {
         ServerLevel level = (ServerLevel)world;
         BlockPos pos = BlockPos.containing(x, y, z);
-        WariumPonderJeiUtil.heatedBlockProcedure(world, pos, 1).ifPresent(blockEntity ->
-            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(handler -> {
+        WPJutils.heatedBlockProcedure(world, pos, 1).ifPresent(blockEntity ->
+            WPJutils.getItemHandler(blockEntity).ifPresent(handler -> {
                 ItemStack template = handler.getStackInSlot(TEMPLATE_SLOT);
 
                 if (template.isEmpty())
@@ -52,7 +52,7 @@ public class FoundryRecipesProvider {
                 if (count >= output.getMaxStackSize())
                     return;
 
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(level, WariumpPonderJeiRecipes.FOUNDRY_TYPE, template, input)
                 .filter(recipe -> input.getCount() >= recipe.count && (output.isEmpty() || output.is(recipe.result)))
                 .ifPresent(recipe -> {

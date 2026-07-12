@@ -23,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.DurationalAssemblyRecipe;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil.BlockSoundPlayer;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
+import crazywoddman.warium_ponder_jei.util.WPJutils.BlockSoundPlayer;
 
 @Mixin({AssemblyMechanicalFabricatorBlock.class, AssemblyCircuitFabricatorBlock.class})
 public class FabricatorRecipesProvider {
@@ -39,14 +39,14 @@ public class FabricatorRecipesProvider {
         remap = true
     )
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z, BlockState state, BlockState bs, ServerLevel level, BlockPos pos, RandomSource random) {
-        WariumPonderJeiUtil.tryAssembly(level, pos, true, (blockEntity, input, output) -> {
+        WPJutils.tryAssembly(level, pos, true, (blockEntity, input, output) -> {
             CompoundTag data = blockEntity.getPersistentData();
             int progress = data.getInt("progress");
             boolean isMechanical = blockEntity instanceof AssemblyMechanicalFabricatorBlockEntity;
             RecipeType<? extends DurationalAssemblyRecipe> type = (isMechanical ? WariumpPonderJeiRecipes.MECHANICAL_FABRICATOR_TYPE : WariumpPonderJeiRecipes.CIRCUIT_FABRICATOR_TYPE).get();
 
-            if ((input.isEmpty() || !WariumPonderJeiUtil.findRecipe(level, () -> type, input).map(recipe -> {
-                if (!WariumPonderJeiUtil.readItemSlots(output, recipe.result))
+            if ((input.isEmpty() || !WPJutils.findRecipe(level, () -> type, input).map(recipe -> {
+                if (!WPJutils.readItemSlots(output, recipe.result))
                     return true;
 
                 BlockSoundPlayer player = new BlockSoundPlayer(level, pos);
@@ -55,7 +55,7 @@ public class FabricatorRecipesProvider {
                 if (progress >= passes) {
                     data.remove("progress");
                     data.remove("ProgressFraction");
-                    WariumPonderJeiUtil.writeItemSlots(output, input, random, recipe.result);
+                    WPJutils.writeItemSlots(output, input, random, recipe.result);
                     level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, x + 0.5, y + 0.5, z + 0.5, 10, 0.6, 0.6, 0.6, 0.1);
 
                     for (SoundEvent sound : new SoundEvent[]{SoundEvents.CONDUIT_ACTIVATE, SoundEvents.CONDUIT_DEACTIVATE})

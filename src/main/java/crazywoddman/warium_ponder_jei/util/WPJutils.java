@@ -38,7 +38,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class WariumPonderJeiUtil {
+public class WPJutils {
 
     /**
      * @return current time in ticks

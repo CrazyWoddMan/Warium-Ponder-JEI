@@ -20,8 +20,8 @@ public class FoundryRecipe extends SimpleRecipe<Item> {
     public final int count;
 
     public FoundryRecipe(ResourceLocation id, Ingredient template, CountableIngredient ingredient, Item result) {
-        super(id, WariumpPonderJeiRecipes.FOUNDRY_SERIALIZER, WariumpPonderJeiRecipes.FOUNDRY_TYPE, result, template, ingredient.asIngredient());
-        this.count = ingredient.getCount();
+        super(id, WariumpPonderJeiRecipes.FOUNDRY_SERIALIZER, WariumpPonderJeiRecipes.FOUNDRY_TYPE, result, template, ingredient.ingredient);
+        this.count = ingredient.count;
     }
 
     public static class Serializer implements RecipeSerializer<FoundryRecipe> {

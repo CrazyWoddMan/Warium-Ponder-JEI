@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil.BlockSoundPlayer;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
+import crazywoddman.warium_ponder_jei.util.WPJutils.BlockSoundPlayer;
 
 @Mixin(BreederReactorInterfaceBlock.class)
 public class BreederReactorRecipesProvider {
@@ -34,17 +34,17 @@ public class BreederReactorRecipesProvider {
         remap = true
     )
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z, BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!WariumPonderJeiUtil.verifyReactor(level, pos))
+        if (!WPJutils.verifyReactor(level, pos))
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
         blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).map(cap -> cap.getStackInSlot(0)).ifPresent(input ->
-            WariumPonderJeiUtil.getItemHandler(level.getBlockEntity(pos.below(2))).ifPresent(output -> {
+            WPJutils.getItemHandler(level.getBlockEntity(pos.below(2))).ifPresent(output -> {
                 CompoundTag data = blockEntity.getPersistentData();
                 int progress = data.getInt("progress");
 
-                if ((input.isEmpty() || !WariumPonderJeiUtil.findRecipe(level, WariumpPonderJeiRecipes.BREEDER_REACTOR_TYPE, input).map(recipe -> {
-                    if (!WariumPonderJeiUtil.readItemSlots(output, recipe.result))
+                if ((input.isEmpty() || !WPJutils.findRecipe(level, WariumpPonderJeiRecipes.BREEDER_REACTOR_TYPE, input).map(recipe -> {
+                    if (!WPJutils.readItemSlots(output, recipe.result))
                         return true;
 
                     int passes = recipe.processtime * 4;
@@ -52,7 +52,7 @@ public class BreederReactorRecipesProvider {
 
                     if (progress >= passes) {
                         data.remove("progress");
-                        WariumPonderJeiUtil.writeItemSlots(output, input, i -> true, recipe.result);
+                        WPJutils.writeItemSlots(output, input, i -> true, recipe.result);
                         level.sendParticles(
                             ParticleTypes.SONIC_BOOM,
                             x + 0.5,

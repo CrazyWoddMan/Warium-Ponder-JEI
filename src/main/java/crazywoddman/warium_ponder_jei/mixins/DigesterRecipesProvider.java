@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(BauxiteDigesterBlock.class)
 public class DigesterRecipesProvider {
@@ -34,11 +34,11 @@ public class DigesterRecipesProvider {
         remap = true
     )
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z, BlockState state, BlockState bs, ServerLevel level, BlockPos pos, RandomSource random) {
-        WariumPonderJeiUtil.tryAssembly(level, pos, false, (blockEntity, input, output) ->
+        WPJutils.tryAssembly(level, pos, false, (blockEntity, input, output) ->
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).map(cap -> cap.getStackInSlot(0)).filter(stack -> !stack.isEmpty()).ifPresent(catalyst ->
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(level, WariumpPonderJeiRecipes.DIGESTER_TYPE, input, catalyst)
-                .filter(r -> WariumPonderJeiUtil.processAssembly(output, input, random, r.result))
+                .filter(r -> WPJutils.processAssembly(output, input, random, r.result))
                 .ifPresent(recipe -> {
                     if (recipe.consumeChance == 100 || random.nextInt(100) < recipe.consumeChance)
                         catalyst.shrink(1);

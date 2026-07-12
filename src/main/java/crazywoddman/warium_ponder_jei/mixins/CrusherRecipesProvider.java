@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
 import crazywoddman.warium_ponder_jei.data.WariumpjTags;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(AssemblyCrusherBlock.class)
 public class CrusherRecipesProvider {
@@ -35,11 +35,11 @@ public class CrusherRecipesProvider {
         remap = true
     )
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z, BlockState state, BlockState bs, ServerLevel level, BlockPos pos, RandomSource random) {
-        WariumPonderJeiUtil.tryAssembly(level, pos, false, (blockEntity, input, output) ->
+        WPJutils.tryAssembly(level, pos, false, (blockEntity, input, output) ->
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).map(cap -> cap.getStackInSlot(0)).filter(s -> s.is(WariumpjTags.Items.CRUSHING_WHEELS)).ifPresent(crushingWheel ->
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(level, WariumpPonderJeiRecipes.CRUSHER_TYPE, input)
-                .filter(r -> WariumPonderJeiUtil.processAssembly(output, input, random, r.result))
+                .filter(r -> WPJutils.processAssembly(output, input, random, r.result))
                 .ifPresent(recipe -> {
                     if (crushingWheel.hurt(1, random, null)) {
                         crushingWheel.shrink(1);

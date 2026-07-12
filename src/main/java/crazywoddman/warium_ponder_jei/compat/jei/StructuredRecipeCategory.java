@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.data.ChancedItem;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -113,9 +113,9 @@ public abstract class StructuredRecipeCategory<T> implements IRecipeCategory<T> 
 
     protected void firebox() {
         addBlock(
-            () -> WariumPonderJeiUtil.ticker(FIREBOXES),
+            () -> WPJutils.ticker(FIREBOXES),
             0, 0, 0,
-            tooltip -> tooltip.add(1, Component.translatable(WariumPonderJei.MODID + WariumPonderJeiUtil.ticker(FIREBOX_TOOLTIPS)).withStyle(ChatFormatting.GOLD))
+            tooltip -> tooltip.add(1, Component.translatable(WariumPonderJei.MODID + WPJutils.ticker(FIREBOX_TOOLTIPS)).withStyle(ChatFormatting.GOLD))
         );
     }
 

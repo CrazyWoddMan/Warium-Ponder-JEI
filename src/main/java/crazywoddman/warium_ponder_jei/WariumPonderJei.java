@@ -16,11 +16,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(WariumPonderJei.MODID)
 public class WariumPonderJei {
     public static final String MODID = "warium_ponder_jei";
+    public static final boolean WARIUM_ADDITIONS, CREATE, WARIUM_VS;
 
-    private static final ModList MODLIST = ModList.get();
-
-    public static final boolean WARIUM_ADDITIONS = MODLIST.isLoaded("warium_additions");
-    public static final boolean CREATE = MODLIST.isLoaded("create");
+    static {
+        ModList modlist = ModList.get();
+        WARIUM_VS = modlist.isLoaded("valkyrien_warium");
+        WARIUM_ADDITIONS = modlist.isLoaded("warium_additions");
+        CREATE = modlist.isLoaded("create");
+    }
 
     public WariumPonderJei(FMLJavaModLoadingContext context) {
         IEventBus bus = context.getModEventBus();

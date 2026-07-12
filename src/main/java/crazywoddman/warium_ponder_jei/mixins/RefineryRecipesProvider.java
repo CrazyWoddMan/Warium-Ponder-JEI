@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.RefineryRecipe;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(RefineryBlock.class)
 public class RefineryRecipesProvider {
@@ -44,14 +44,14 @@ public class RefineryRecipesProvider {
         if (!level.getBlockState(pos.above()).is(CrustyChunksModBlocks.REFINERY_TOWER.get()))
             return;
 
-        WariumPonderJeiUtil.heatedBlockProcedure(world, pos, 4).ifPresent(blockEntity -> {
+        WPJutils.heatedBlockProcedure(world, pos, 4).ifPresent(blockEntity -> {
             MutableBoolean inputIsFluid = new MutableBoolean();
 
-            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(ihandler -> {
+            WPJutils.getItemHandler(blockEntity).ifPresent(ihandler -> {
                 ItemStack input = ihandler.getStackInSlot(0);
                 LazyOptional<IFluidHandler> fhandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
                 FluidStack fluid = fhandler.map(handler -> handler.getFluidInTank(0)).orElse(null);
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(level, WariumpPonderJeiRecipes.REFINERY_TYPE, r -> recipeMatch(r, input, fluid, inputIsFluid))
                 .ifPresent(recipe -> {
                     BlockPos topTower;

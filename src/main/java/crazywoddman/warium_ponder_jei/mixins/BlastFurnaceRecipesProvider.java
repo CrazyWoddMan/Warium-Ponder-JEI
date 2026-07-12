@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(BlastFurnaceBlock.class)
 public class BlastFurnaceRecipesProvider {
@@ -35,12 +35,12 @@ public class BlastFurnaceRecipesProvider {
         remap = true
     )
     private void redirectProcedureCall(LevelAccessor world, double x, double y, double z, BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        WariumPonderJeiUtil.heatedBlockProcedure(level, pos, 1).ifPresent(blockEntity -> {
+        WPJutils.heatedBlockProcedure(level, pos, 1).ifPresent(blockEntity -> {
             for (int i = 1; i <= 3; i++)
                 if (!level.getBlockState(pos.above(i)).is(CrustyChunksModBlocks.BLAST_FUNNEL.get()))
                     return;
             
-            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(handler -> {
+            WPJutils.getItemHandler(blockEntity).ifPresent(handler -> {
                 ItemStack inputTop = handler.getStackInSlot(INPUT_TOP_SLOT);
 
                 if (inputTop.isEmpty())
@@ -57,7 +57,7 @@ public class BlastFurnaceRecipesProvider {
                 if (count >= output.getMaxStackSize())
                     return;
 
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(
                     level,
                     WariumpPonderJeiRecipes.BLAST_FURNACE_TYPE,

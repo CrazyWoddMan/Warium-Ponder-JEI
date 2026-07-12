@@ -22,8 +22,8 @@ import java.util.function.Function;
 import java.util.function.IntSupplier;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
+import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAccessor;
 import crazywoddman.warium_ponder_jei.data.recipes.*;
-import crazywoddman.warium_ponder_jei.util.WariumAdditionsAccessor;
 
 public class WariumpPonderJeiRecipes {
     public static final IntSupplier MACHINES_KINETIC_REQUIRE = () -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getMachinesMinKinetic() : 30;

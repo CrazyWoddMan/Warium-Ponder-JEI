@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import crazywoddman.warium_ponder_jei.data.AssemblySounds;
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
 import crazywoddman.warium_ponder_jei.data.WariumpjTags;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(AssemblyDepotBlock.class)
 public class AssemblyMachineRecipesProvider {
@@ -43,7 +43,7 @@ public class AssemblyMachineRecipesProvider {
         if (!machine.is(CrustyChunksModBlocks.ASSEMBLY_MACHINE.get()))
             return;
 
-        WariumPonderJeiUtil.tryAssembly(level, pos, false, f -> true, (blockEntity, input, output) -> {
+        WPJutils.tryAssembly(level, pos, false, f -> true, (blockEntity, input, output) -> {
             BlockPos kineticSource = above.relative(machine.getValue(HorizontalDirectionalBlock.FACING).getOpposite());
 
             if (!level.getBlockState(kineticSource).is(WariumpjTags.Blocks.KINETIC_OUTPUT_FRONT))
@@ -55,7 +55,7 @@ public class AssemblyMachineRecipesProvider {
                 return;
 
             level.getBlockEntity(pos.above()).getCapability(ForgeCapabilities.ITEM_HANDLER).map(cap -> cap.getStackInSlot(0)).filter(item -> !item.isEmpty()).ifPresent(process ->
-                WariumPonderJeiUtil
+                WPJutils
                 .findRecipe(level, WariumpPonderJeiRecipes.ASSEMBLY_TYPE, input, process)
                 .ifPresent(recipe -> {
                     int slot = 0;

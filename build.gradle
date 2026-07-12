@@ -53,13 +53,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name 'Conditional Mixin'
-        url 'https://maven.fallenbreath.me/releases'
-        content {
-            includeGroup 'me.fallenbreath'
-        }
-    }
-    maven {
         name 'Create, Ponder, Flywheel (6.0)'
         url = 'https://maven.createmod.net'
     }
@@ -84,6 +77,20 @@ repositories {
             includeGroup 'mezz.jei'
         }
     }
+    maven {
+        name 'Valkyrien Skies'
+        url 'https://maven.valkyrienskies.org'
+        content {
+            includeGroup 'org.valkyrienskies'
+        }
+    }
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge'
+        content {
+            includeGroup 'thedarkcolour'
+        }
+    }
     flatDir {
         name 'Warium, Valkyrien Warium'
         dir 'libs'
@@ -94,14 +101,14 @@ dependencies {
     minecraft "net.minecraftforge:forge:1.20.1-47.4.0"
     
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    jarJar(group: 'me.fallenbreath', name: 'conditional-mixin-forge', version: '[0.6.4,)')
-    compileOnly fg.deobf("me.fallenbreath:conditional-mixin-forge:0.6.4")
 
     compileOnly fg.deobf("blank:warium_additions-${warium_additions_version}-all:${warium_additions_version}")
 
     runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${mc_version}:4.8.2")
     implementation fg.deobf("blank:Warium-${warium_version}:${warium_version}")
-    compileOnly fg.deobf("blank:WariumVS-${valkyrien_warium_version}:${valkyrien_warium_version}")
+    implementation fg.deobf("blank:WariumVS-${wariumvs_version}:${wariumvs_version}")
+    runtimeOnly fg.deobf("org.valkyrienskies:valkyrienskies-120-forge:2.4.11") {transitive = false}
+    runtimeOnly fg.deobf("thedarkcolour:kotlinforforge:4.12.0")
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
@@ -114,10 +121,7 @@ dependencies {
 }
 
 mixin {
-    if (gradle.startParameter.taskNames.every {!it.contains('runData')}) {
-        add sourceSets.main, "${mod_id}.mixins.refmap.json"
-        config "${mod_id}.mixins.json"
-    }
+    add sourceSets.main, "${mod_id}.mixins.refmap.json"
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -133,7 +137,7 @@ tasks.named('processResources', ProcessResources).configure {
             mod_authors: mod_authors,
             mod_description: mod_description,
             warium_version: warium_version,
-            valkyrien_warium_version: valkyrien_warium_version,
+            wariumvs_version: wariumvs_version,
             create_version: create_version,
             jei_version: jei_version,
             warium_additions_version: warium_additions_version

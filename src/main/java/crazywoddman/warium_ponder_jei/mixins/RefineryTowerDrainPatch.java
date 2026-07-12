@@ -25,11 +25,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.network.NetworkHandler;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 
-@Restriction(conflict = @Condition("warium_additions"))
 @Mixin(FluidDrainProcedure.class)
 public class RefineryTowerDrainPatch {
 
@@ -40,6 +38,9 @@ public class RefineryTowerDrainPatch {
         cancellable = true
     )
     private static void injectExecute(LevelAccessor world, double x, double y, double z, Entity entity, CallbackInfo ci) {
+        if (WariumPonderJei.WARIUM_ADDITIONS)
+            return;
+        
         if (NetworkHandler.serverHasMod)
             ci.cancel();
 

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
 import crazywoddman.warium_ponder_jei.data.WariumpjTags;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
 
 @Mixin(MineralGrinderProcessProcedure.class)
 public class MineralGrinderRecipesProvider {
@@ -41,7 +41,7 @@ public class MineralGrinderRecipesProvider {
 
         BlockPos pos = BlockPos.containing(x, y, z);
         level.getBlockEntity(pos, CrustyChunksModBlockEntities.MINERAL_GRINDER.get()).ifPresent(blockEntity -> 
-            WariumPonderJeiUtil.getItemHandler(blockEntity).ifPresent(handler -> {
+            WPJutils.getItemHandler(blockEntity).ifPresent(handler -> {
                 ItemStack crushingWheel = handler.getStackInSlot(CRUSHING_WHEEL_SLOT);
 
                 if (crushingWheel.isEmpty() || !crushingWheel.is(WariumpjTags.Items.CRUSHING_WHEELS))
@@ -61,7 +61,7 @@ public class MineralGrinderRecipesProvider {
                         return;
                 }
 
-                WariumPonderJeiUtil.findRecipe(level, WariumpPonderJeiRecipes.MINERAL_GRINDER_TYPE, input).ifPresent(recipe -> {
+                WPJutils.findRecipe(level, WariumpPonderJeiRecipes.MINERAL_GRINDER_TYPE, input).ifPresent(recipe -> {
                     for (int i = 0; i < 2; i++)
                         if (!outputs[i].isEmpty() && !outputs[i].is(recipe.result[i].asItem()))
                             return;

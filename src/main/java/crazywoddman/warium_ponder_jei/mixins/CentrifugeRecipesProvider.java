@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil;
-import crazywoddman.warium_ponder_jei.util.WariumPonderJeiUtil.BlockSoundPlayer;
+import crazywoddman.warium_ponder_jei.util.WPJutils;
+import crazywoddman.warium_ponder_jei.util.WPJutils.BlockSoundPlayer;
 
 @Mixin(AssemblyCentrifugeMiddleBlock.class)
 public class CentrifugeRecipesProvider {
@@ -43,12 +43,12 @@ public class CentrifugeRecipesProvider {
         if (!bottom.is(CrustyChunksModBlocks.ASSEMBLY_CENTRIFUGE_BOTTOM.get()))
             return;
 
-        WariumPonderJeiUtil.tryAssembly(level, pos, true, facing -> WariumPonderJeiUtil.checkKinetic(level, pos.below(), bottom.getValue(HorizontalDirectionalBlock.FACING).getOpposite()) >= WariumpPonderJeiRecipes.MACHINES_KINETIC_REQUIRE.getAsInt(), (blockEntity, input, output) -> {
+        WPJutils.tryAssembly(level, pos, true, facing -> WPJutils.checkKinetic(level, pos.below(), bottom.getValue(HorizontalDirectionalBlock.FACING).getOpposite()) >= WariumpPonderJeiRecipes.MACHINES_KINETIC_REQUIRE.getAsInt(), (blockEntity, input, output) -> {
             CompoundTag data = blockEntity.getPersistentData();
             int progress = data.getInt("progress");
 
-            if ((input.isEmpty() || !WariumPonderJeiUtil.findRecipe(level, WariumpPonderJeiRecipes.CENTRIFUGE_TYPE, input).map(recipe -> {
-                if (!WariumPonderJeiUtil.readItemSlots(output, recipe.result))
+            if ((input.isEmpty() || !WPJutils.findRecipe(level, WariumpPonderJeiRecipes.CENTRIFUGE_TYPE, input).map(recipe -> {
+                if (!WPJutils.readItemSlots(output, recipe.result))
                     return true;
 
                 int passes = recipe.processtime * 4;
@@ -57,7 +57,7 @@ public class CentrifugeRecipesProvider {
                 if (progress >= passes) {
                     data.remove("progress");
                     data.remove("ProgressFraction");
-                    WariumPonderJeiUtil.writeItemSlots(output, input, random, recipe.result);
+                    WPJutils.writeItemSlots(output, input, random, recipe.result);
                     level.sendParticles(
                         ParticleTypes.SOUL_FIRE_FLAME,
                         x + 0.5,

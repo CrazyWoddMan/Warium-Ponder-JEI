@@ -1,257 +1,158 @@
 package crazywoddman.warium_ponder_jei.ponder.scenes;
 
-import java.util.function.Supplier;
-
-import crazywoddman.warium_ponder_jei.ponder.WariumPonder.SceneExtras;
+import crazywoddman.warium_ponder_jei.WariumPonderJei;
+import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAccessor;
+import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
+import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
-import net.createmod.ponder.api.scene.SceneBuilder;
-import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.mcreator.crustychunks.init.CrustyChunksModBlocks;
+import net.mcreator.crustychunks.init.CrustyChunksModFluids;
 import net.mcreator.crustychunks.init.CrustyChunksModItems;
 import net.mcreator.crustychunks.init.CrustyChunksModParticleTypes;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class LargeEngineScene {
-    private enum Part {
-        DRIVE_SHAFT, CYLLINER, SMOKESTACK;
+public class LargeEngineScene extends AbstractScene {
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected RegistryObject<Item>[] getItems() {
+        return new RegistryObject[]{CrustyChunksModItems.DRIVE_SHAFT, CrustyChunksModItems.ENGINE_CYLLINDER, CrustyChunksModItems.LARGE_ENGINE_SMOKESTACK};
     }
-    public static void scene(SceneBuilder scene, SceneBuildingUtil util, SceneExtras extras, RegistryObject<Item> item) {
-        Supplier<Block> block = () -> ((BlockItem)item.get()).getBlock();
-        Part part;
-        if (item == CrustyChunksModItems.DRIVE_SHAFT)
-            part = Part.DRIVE_SHAFT;
-        else if (item == CrustyChunksModItems.ENGINE_CYLLINDER)
-            part = Part.CYLLINER;
-        else if (item == CrustyChunksModItems.LARGE_ENGINE_SMOKESTACK)
-            part = Part.SMOKESTACK;
-        else
-            throw new IllegalStateException("No scene variant is avaible for " + ForgeRegistries.ITEMS.getKey(item.get()));
 
-        scene.title(ForgeRegistries.ITEMS.getKey(item.get()).getPath(), "Large Engine " + switch (part) {
-            case DRIVE_SHAFT -> "Drive Shaft";
-            case CYLLINER -> "Cyllinder";
-            case SMOKESTACK -> "Smokestack";
-        });
-        scene.configureBasePlate(0, 0, 9);
-        scene.scaleSceneView(0.9f);
-        scene.setSceneOffsetY(-1);
-        scene.showBasePlate();
-        extras.setBlock(4, 1 + part.ordinal(), 4, block);
-        var main = extras.showSection(4, 1 + part.ordinal(), 4, Direction.DOWN);
+    @Override
+    protected int getSize() {
+        return 9;
+    }
 
-        if (part != Part.DRIVE_SHAFT)
-            extras.moveSection(main, 0, -part.ordinal(), 0, 0);
+    @Override
+    protected String getID(SceneHelper builder) {
+        return "large_engine";
+    }
 
-        scene.idle(20);
+    @Override
+    protected String getName(SceneHelper helper) {
+        return "Large Engine";
+    }
 
-        scene.overlay()
-            .showText(80)
-            .text("Large Engine " + switch (part) {
-                case DRIVE_SHAFT -> "Drive Shaft";
-                case CYLLINER -> "Cyllinder";
-                case SMOKESTACK -> "Smokestack";
-            } + " is used to build Large Engine")
-            .pointAt(new Vec3(4.5, 1.5, 4.5))
-            .placeNearTarget();
+    @Override
+    protected void showScene(SceneHelper helper) {
+        helper.builder.scaleSceneView(0.9f);
+        helper.builder.setSceneOffsetY(-1);
+        helper.setBlock(CrustyChunksModBlocks.DRIVE_SHAFT, 4, 1, 4).show(Direction.DOWN);
+        
+        helper.idle(5);
 
-        scene.idle(95);
+        helper.setBlock(CrustyChunksModBlocks.ENGINE_CYLLINDER, 4, 2, 4).show(Direction.DOWN);
+        
+        helper.idle(5);
 
-        switch (part) {
-            case DRIVE_SHAFT -> {
-                extras.setBlock(4, 2, 4, CrustyChunksModBlocks.ENGINE_CYLLINDER);
-                scene.world().showSection(extras.sel(4, 2, 4), Direction.DOWN);
+        helper.setBlock(CrustyChunksModBlocks.LARGE_ENGINE_SMOKESTACK, 4, 3, 4).show(Direction.DOWN);
 
-                scene.idle(5);
+        helper.idle(20);
 
-                extras.setBlock(4, 3, 4, CrustyChunksModBlocks.LARGE_ENGINE_SMOKESTACK);
-                scene.world().showSection(extras.sel(4, 3, 4), Direction.DOWN);
-            }
-            case CYLLINER -> {
-                extras.moveSection(main, 0, 1, 0, 5);
+        helper.setBlock(CrustyChunksModBlocks.FUEL_TANK, 1, 1, 4).show(Direction.DOWN);
 
-                scene.idle(5);
+        helper.idle(20);
 
-                extras.setBlock(4, 1, 4, CrustyChunksModBlocks.DRIVE_SHAFT);
-                scene.world().showSection(extras.sel(4, 1, 4), Direction.UP);
-                extras.setBlock(4, 3, 4, CrustyChunksModBlocks.LARGE_ENGINE_SMOKESTACK);
-                scene.world().showSection(extras.sel(4, 3, 4), Direction.DOWN);
-            }
-            case SMOKESTACK -> {
-                extras.moveSection(main, 0, 2, 0, 7);
+        helper.showTextAt("%s is needed to provide the fuel",
+            80, 1.5, 1.5, 4.5,
+            getName(CrustyChunksModItems.FUEL_TANK)
+        ).attachKeyFrame();
 
-                scene.idle(7);
+        helper.idle(90);
 
-                extras.setBlock(4, 2, 4, CrustyChunksModBlocks.ENGINE_CYLLINDER);
-                scene.world().showSection(extras.sel(4, 2, 4), Direction.UP);
+        helper.showTextAt("Right click with %s to fill fuel tank with %s",
+            100, 1.5, 1.5, 4.5,
+            getName(CrustyChunksModItems.DIESEL_BUCKET),
+            getName(CrustyChunksModFluids.DIESEL.get())
+        ).attachKeyFrame();
 
-                scene.idle(5);
+        helper.showControls(CrustyChunksModItems.DIESEL_BUCKET, Pointing.RIGHT, 100, 2, 1.5, 4)
+            .rightClick();
 
-                extras.setBlock(4, 1, 4, CrustyChunksModBlocks.DRIVE_SHAFT);
-                scene.world().showSection(extras.sel(4, 1, 4), Direction.UP);
-            }
-        }
+        helper.idle(110);
 
-        scene.idle(20);
+        helper.showTextAt("Use %s to connect fuel tank to the engine",
+            100, 1.5, 1.5, 4.5,
+            getName(CrustyChunksModItems.FUEL_HOSE)
+        ).attachKeyFrame();
 
-        extras.setBlock(1, 1, 4, CrustyChunksModBlocks.FUEL_TANK);
-        scene.world().showSection(extras.sel(1, 1, 4), Direction.DOWN);
+        helper.idle(20);
 
-        scene.idle(20);
+        helper.showControls(CrustyChunksModItems.FUEL_HOSE, Pointing.RIGHT, 30, 5, 2.5, 4)
+            .rightClick();
 
-        scene.overlay()
-            .showText(80)
-            .attachKeyFrame()
-            .text("Fuel Tank Connection Port is needed to provide the fuel")
-            .pointAt(new Vec3(1.5, 1.5, 4.5))
-            .placeNearTarget();
+        helper.idle(40);
 
-        scene.idle(90);
+        helper.showControls(CrustyChunksModItems.FUEL_HOSE, Pointing.DOWN, 30, 1.8, 1.5, 5)
+            .rightClick();
+        helper.showLine(PonderPalette.BLUE, 60, 1.5, 1.5, 4.5, 4.5, 2.5, 4.5);
 
-        scene.overlay()
-            .showText(100)
-            .attachKeyFrame()
-            .text("Right click with Diesel Bucket to fill Fuel Tank with diesel")
-            .pointAt(new Vec3(1.5, 1.5, 4.5))
-            .placeNearTarget();
+        helper.idle(65);
 
-        scene.overlay()
-            .showControls(new Vec3(2, 1.5, 4), Pointing.RIGHT, 100)
-            .rightClick()
-            .withItem(new ItemStack(CrustyChunksModItems.DIESEL_BUCKET.get()));
+        helper.setBlock(Blocks.LEVER.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST), 3, 2, 4)
+            .show(Direction.EAST);
 
-        scene.idle(110);
+        helper.idle(20);
 
-        scene.overlay()
-            .showText(100)
-            .attachKeyFrame()
-            .text("Use Fuel Hose to connect Fuel Tank to the engine")
-            .pointAt(new Vec3(1.5, 1.5, 4.5))
-            .placeNearTarget();
+        helper.toggleRedstone(3, 2, 4);
 
-        scene.idle(20);
+        helper.idle(20);
 
-        scene.overlay()
-            .showControls(new Vec3(5, 2.5, 4), Pointing.RIGHT, 30)
-            .rightClick()
-            .withItem(new ItemStack(CrustyChunksModItems.FUEL_HOSE.get()));
+        helper.emitParticles(CrustyChunksModParticleTypes.SMOKE, 4.5, 4.5, 4.5, 0, 0, 0);
 
-        scene.idle(40);
+        helper.idle(20);
 
-        scene.overlay()
-            .showControls(new Vec3(1.8, 1.5, 5), Pointing.DOWN, 30)
-            .rightClick()
-            .withItem(new ItemStack(CrustyChunksModItems.FUEL_HOSE.get()));
+        helper.showTextAt(
+            "One Large Engine section generates %d units of Kinetic Power",
+            120,
+            4.5, 1.5, 4,
+            WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getLEpower() : 50
+        ).attachKeyFrame();
 
-        extras.showLine(PonderPalette.BLUE, 1.5, 1.5, 4.5, 4.5, 2.5, 4.5, 60);
+        helper.idle(130);
 
-        scene.idle(65);
+        helper.showTextAt("However...", 30, 4.5, 2.5, 4.5).attachKeyFrame();
 
-        extras.setBlock(3, 1, 4, () -> Blocks.LEVER, state -> state.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST));
-        scene.world().showSection(extras.sel(3, 1, 4), Direction.EAST);
-
-        scene.idle(20);
-
-        scene.overlay()
-            .showText(80)
-            .attachKeyFrame()
-            .text("Redstone signal should be used to turn the engine on")
-            .pointAt(new Vec3(3.8, 1.5, 4.5))
-            .placeNearTarget();
-
-        scene.idle(20);
-
-        scene.world().toggleRedstonePower(extras.sel(3, 1, 4));
-        scene.effects().indicateRedstone(util.grid().at(3, 1, 4));
-
-        scene.idle(20);
-
-        extras.emitParticles(4.5, 4.5, 4.5, CrustyChunksModParticleTypes.SMOKE.get(), 0, 0, 0);
-
-        scene.idle(50);
-
-        scene.overlay()
-            .showText(120)
-            .attachKeyFrame()
-            .text("One Large Engine section produces the same amount of rotation force as Medium Diesel Engine")
-            .pointAt(new Vec3(4.5, 1.5, 4))
-            .placeNearTarget();
-
-        scene.idle(130);
-
-        scene.overlay()
-            .showText(30)
-            .attachKeyFrame()
-            .text("However...")
-            .pointAt(new Vec3(4.5, 2.5, 4.5))
-            .placeNearTarget();
-
-        scene.idle(40);
+        helper.idle(40);
 
         for (int i = 1; i <= 3; i++) {
-            var enginein = extras.showSection(4, 1, 4, 4, 3, 4, Direction.SOUTH);
-            extras.moveSection(enginein, 0, 0, -i, 0);
-            var engineip = extras.showSection(4, 1, 4, 4, 3, 4, Direction.NORTH);
-            extras.moveSection(engineip, 0, 0, i, 0);
-            scene.idle(5);
+            helper.moveSection(0, 0, -i, helper.showSection(Direction.SOUTH, 4, 1, 4, 4, 3, 4));
+            helper.moveSection(0, 0, i, helper.showSection(Direction.NORTH, 4, 1, 4, 4, 3, 4));
+            helper.idle(5);
         }
 
-        var engine8 = extras.showSection(4, 1, 4, 4, 3, 4, Direction.NORTH);
-        extras.moveSection(engine8, 0, 0, 4, 0);
+        helper.moveSection(0, 0, 4, helper.showSection(Direction.NORTH, 4, 1, 4, 4, 3, 4));
 
-        scene.idle(20);
+        helper.idle(20);
 
-        scene.overlay()
-            .showText(80)
-            .attachKeyFrame()
-            .text("Up to 8 sections can be stacked to to increase the power")
-            .pointAt(new Vec3(4.5, 2.5, 4.5))
-            .placeNearTarget();
+        helper.showTextAt("Up to 8 sections can be stacked to to increase the power", 80, 4.5, 2.5, 4.5)
+            .attachKeyFrame();
 
-        scene.idle(90);
+        helper.idle(90);
 
         for (int i = 4; i >= -3; i--) {
-            if (i == 0)
-                continue;
-
-            var leveri = extras.showSection(3, 1, 4, Direction.EAST);
-            extras.moveSection(leveri, 0, 0, i, 0);
-            scene.idle(3);
+            if (i == 0) continue;
+            helper.moveSection(0, 0, i, helper.showSection(Direction.EAST, 3, 2, 4));
+            helper.idle(3);
         }
 
         for (int i = 4; i >= -3; i--) {
-            if (i == 0)
-                continue;
-
-            var tanki = extras.showSection(1, 1, 4, Direction.DOWN);
-            extras.moveSection(tanki, 0, 0, i, 0);
-            scene.idle(3);
+            if (i == 0) continue;
+            helper.moveSection(0, 0, i, helper.showSection(Direction.DOWN, 1, 1, 4));
+            helper.idle(3);
         }
 
-        scene.idle(17);
+        helper.idle(17);
 
-        scene.overlay()
-            .showText(80)
-            .attachKeyFrame()
-            .text("Each section requires redstone signal individually")
-            .pointAt(new Vec3(3.8, 1.5, 1.5))
-            .placeNearTarget();
-
-        scene.idle(90);
-
-        scene.overlay()
-            .showText(200)
-            .text("And each section must be connected to individual Fuel Tank Connection Port")
-            .pointAt(new Vec3(1.5, 1.5, 1.5))
-            .placeNearTarget();
+        helper.showTextAt("Each section requires individual redstone signal and %s",
+            80, 3.8, 1.5, 1.5,
+            getName(CrustyChunksModItems.FUEL_TANK)
+        );
     }
 }

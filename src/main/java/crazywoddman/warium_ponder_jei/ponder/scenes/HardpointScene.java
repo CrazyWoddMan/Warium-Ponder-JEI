@@ -1,90 +1,70 @@
 package crazywoddman.warium_ponder_jei.ponder.scenes;
 
-import crazywoddman.warium_ponder_jei.ponder.WariumPonder.SceneExtras;
+import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
+import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
 import net.createmod.catnip.math.Pointing;
-import net.createmod.ponder.api.scene.SceneBuilder;
-import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.mcreator.crustychunks.init.CrustyChunksModBlocks;
 import net.mcreator.crustychunks.init.CrustyChunksModEntities;
 import net.mcreator.crustychunks.init.CrustyChunksModItems;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.RegistryObject;
 
-public class HardpointScene {
-    public static void scene(SceneBuilder scene, SceneBuildingUtil util, SceneExtras extras, RegistryObject<Item> item) {
-        scene.title("empty_missile_hardpoint", "Medium Rocket Hardpoint");
-        scene.configureBasePlate(0, 0, 5);
-        scene.showBasePlate();
-        extras.setBlock(2, 1, 2, CrustyChunksModBlocks.EMPTY_MISSILE_HARDPOINT);
-        var hardpoint = scene.world().showIndependentSection(extras.sel(2, 1, 2), Direction.DOWN);
+public class HardpointScene extends AbstractScene {
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected RegistryObject<Item>[] getItems() {
+        return new RegistryObject[]{CrustyChunksModItems.EMPTY_MISSILE_HARDPOINT};
+    }
+
+    @Override
+    protected String getName(SceneHelper helper) {
+        return "Medium Rocket Hardpoint";
+    }
+
+    @Override
+    protected void showScene(SceneHelper helper) {
+        var hardpoint = helper.setBlock(CrustyChunksModBlocks.EMPTY_MISSILE_HARDPOINT, 2, 1, 2).show(Direction.DOWN);
+
+        helper.idle(15);
+
+        helper.setBlock(CrustyChunksModBlocks.STEEL_PLATING, 2, 3, 2).show(Direction.DOWN);
         
-
-        scene.idle(15);
-
-        scene.overlay()
-            .showText(80)
-            .attachKeyFrame()
-            .text("Medium Rocket Hardpoint is used for mounting and launching medium-sized rockets and missiles")
-            .pointAt(new Vec3(2.5, 1.8, 2.5))
-            .placeNearTarget();
-
-        scene.idle(90);
-
-        extras.setBlock(2, 3, 2, CrustyChunksModBlocks.STEEL_BLOCK);
-
-        scene.world().showSection(extras.sel(2, 3, 2), Direction.DOWN);
+        helper.idle(10);
         
-        scene.idle(10);
-        
-        extras.moveSection(hardpoint, 0, 1, 0, 5);
+        helper.moveSection(5, 0, 1, 0, hardpoint);
 
-        scene.idle(20);
+        helper.idle(15);
 
-        scene.addKeyframe();
-        scene.overlay()
-            .showControls(new Vec3(3, 2.8, 2), Pointing.RIGHT, 20)
-            .rightClick()
-            .withItem(new ItemStack(CrustyChunksModItems.FIRE_SPEAR_ROCKET.get()));
+        helper.builder.addKeyframe();
+        helper.showControls(CrustyChunksModItems.FIRE_SPEAR_ROCKET, Pointing.RIGHT, 20, 3, 2.8, 2).rightClick();
 
-        scene.idle(3);
+        helper.idle(5);
 
-        extras.setBlock(2, 1, 2, CrustyChunksModBlocks.FIRE_SPEAR_MISSILE_HARDPOINT);
+        helper.setBlock(CrustyChunksModBlocks.FIRE_SPEAR_MISSILE_HARDPOINT, 2, 1, 2);
 
-        scene.idle(20);
+        helper.idle(20);
 
-        extras.setBlock(1, 3, 2, () -> Blocks.STONE_BUTTON);
-        scene.world().modifyBlock(new BlockPos(1, 3, 2), state -> state.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST), false);
-        scene.world().showSection(extras.sel(1, 3, 2), Direction.EAST);
+        helper.setBlock(Blocks.STONE_BUTTON.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST), 1, 3, 2)
+            .show(Direction.EAST);
 
-        scene.idle(20);
+        helper.idle(20);
 
-        scene.overlay()
-            .showText(60)
-            .text("Redstone signal is needed launch the missile")
-            .pointAt(new Vec3(2, 3.4, 2.6))
-            .placeNearTarget();
+        helper.toggleRedstone(1, 3, 2);
 
-        scene.idle(20);
+        helper.idle(5);
 
-        scene.world().toggleRedstonePower(extras.sel(1, 3, 2));
-        scene.effects().createRedstoneParticles(new BlockPos(1, 3, 2), 0xFF0000, 3);
-
-        scene.idle(5);
-
-        extras.setBlock(2, 1, 2, CrustyChunksModBlocks.EMPTY_MISSILE_HARDPOINT);
-        extras.createEntity(
-            CrustyChunksModEntities.FIRE_SPEAR_ROCKET_PROJECTILE.get(),
+        helper.setBlock(CrustyChunksModBlocks.EMPTY_MISSILE_HARDPOINT, 2, 1, 2);
+        helper.createEntity(
+            CrustyChunksModEntities.FIRE_SPEAR_ROCKET_PROJECTILE,
             "{Motion: [0.0d, 0.0d, -4.0d], Rotation: [180.0f, 0.0f], Pos: [2.5d, 2.5d, 2.5d]}"
         );
 
-        scene.idle(15);
+        helper.idle(15);
         
-        scene.world().toggleRedstonePower(extras.sel(1, 3, 2));
+        helper.toggleRedstone(1, 3, 2);
     }
 }
