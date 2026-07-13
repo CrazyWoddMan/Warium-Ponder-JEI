@@ -26,8 +26,8 @@ import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAcc
 import crazywoddman.warium_ponder_jei.data.recipes.*;
 
 public class WariumpPonderJeiRecipes {
-    public static final IntSupplier MACHINES_KINETIC_REQUIRE = () -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getMachinesMinKinetic() : 30;
-    public static final IntSupplier HEAT_REQUIRE = () -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getHeatRequire() : 200;
+    public static final IntSupplier MACHINES_KINETIC_REQUIRE = WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor::getMachinesMinKinetic : () -> 30;
+    public static final IntSupplier HEAT_REQUIRE = WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor::getHeatRequire : () -> 200;
     private static final Map<ResourceLocation, Function<Level, List<? extends IDurationalRecipe<?>>>> PROGRESSABLE = new HashMap<>();
     
     public static Optional<IDurationalRecipe<?>> getProgressable(BlockEntity blockEntity, Level level, ItemStack stack) {
