@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "valkyrien_warium"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:slab_wings"
+  },
+  "clear": "valkyrien_warium:slab_wing",
+  "result": "valkyrien_warium:slab_wing_%s"
+}

@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:countermeasure_dispensers"
+  },
+  "clear": "crusty_chunks:countermeasure_dispenser",
+  "result": "wariumtactics:%s_countermeasure_dispenser"
+}

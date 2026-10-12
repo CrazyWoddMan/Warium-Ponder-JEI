@@ -11,12 +11,12 @@ import net.mcreator.crustychunks.init.CrustyChunksModItems;
 import net.minecraft.ChatFormatting;
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.CrusherRecipe;
 
 public class CrusherCategory extends StructuredRecipeCategory<CrusherRecipe> {
     public static final RecipeType<CrusherRecipe> TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.CRUSHER_TYPE.getId(),
+        WPJrecipes.CRUSHER.getId(),
         CrusherRecipe.class
     );
 

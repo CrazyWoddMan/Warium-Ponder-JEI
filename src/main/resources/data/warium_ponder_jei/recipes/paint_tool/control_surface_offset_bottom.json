@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "valkyrien_warium"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:control_surfaces_offset_bottom"
+  },
+  "clear": "valkyrien_warium:control_surface_offset_bottom",
+  "result": "valkyrien_warium:%s_control_surface_offset_bottom"
+}

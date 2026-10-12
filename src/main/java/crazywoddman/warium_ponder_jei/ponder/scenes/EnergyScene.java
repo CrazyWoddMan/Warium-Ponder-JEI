@@ -1,7 +1,5 @@
 package crazywoddman.warium_ponder_jei.ponder.scenes;
 
-import crazywoddman.warium_ponder_jei.WariumPonderJei;
-import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAccessor;
 import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
 import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
 import net.createmod.catnip.math.Pointing;
@@ -64,10 +62,8 @@ public class EnergyScene extends AbstractScene {
 
         helper.idle(75);
 
-        helper.showTextAt("The ratio is 1.0 Kinetic Power to %f Forge Energy",
-            60, 2.5, 1.5, 2,
-            WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getKineticToFe() : 1
-        ).attachKeyFrame();
+        helper.showTextAt("The ratio is 1:1", 60, 2.5, 1.5, 2)
+              .attachKeyFrame();
 
         helper.idle(80);
 

@@ -11,12 +11,12 @@ import net.minecraft.ChatFormatting;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.DigesterRecipe;
 
 public class DigesterCategory extends StructuredRecipeCategory<DigesterRecipe> {
     public static final RecipeType<DigesterRecipe> TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.DIGESTER_TYPE.getId(),
+        WPJrecipes.DIGESTER.getId(),
         DigesterRecipe.class
     );
 

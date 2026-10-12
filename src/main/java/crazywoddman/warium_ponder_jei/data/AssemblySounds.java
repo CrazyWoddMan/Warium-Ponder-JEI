@@ -42,13 +42,9 @@ public class AssemblySounds extends SimpleJsonResourceReloadListener {
         SOUNDS.clear();
         
         data.forEach((id, json) -> {
-            try {
-                JsonObject obj = json.getAsJsonObject();
-                for (ItemStack stack : Ingredient.fromJson(obj.get("ingredient")).getItems())
-                    SOUNDS.put(stack.getItem(), ResourceLocation.parse(GsonHelper.getAsString(obj, "sound")));
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to parse assembly sound " + id, e);
-            }
+            JsonObject obj = json.getAsJsonObject();
+            for (ItemStack stack : Ingredient.fromJson(obj.get("ingredient")).getItems())
+                SOUNDS.put(stack.getItem(), ResourceLocation.parse(GsonHelper.getAsString(obj, "sound")));
         });
     }
 }

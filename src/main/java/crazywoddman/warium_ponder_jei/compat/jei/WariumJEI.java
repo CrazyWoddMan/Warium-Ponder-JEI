@@ -2,9 +2,9 @@ package crazywoddman.warium_ponder_jei.compat.jei;
 
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.RecipeType;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -17,33 +17,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.data.recipes.BlastFurnaceRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.BreederReactorRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.CentrifugeRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.CircuitFabricatorRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.CrusherRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.DigesterRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.FoundryRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.MechanicalFabricatorRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.MineralGrinderRecipe;
-import crazywoddman.warium_ponder_jei.data.recipes.RefineryRecipe;
-import crazywoddman.warium_ponder_jei.network.NetworkHandler;
-import crazywoddman.warium_ponder_jei.WariumPonderJei;
+import crazywoddman.warium_ponder_jei.data.RecipeRegistry;
+import crazywoddman.warium_ponder_jei.utils.WPJutil;
 import crazywoddman.warium_ponder_jei.compat.jei.categories.*;
+
+import static crazywoddman.warium_ponder_jei.data.WPJrecipes.*;
 
 @JeiPlugin
 public class WariumJEI implements IModPlugin {
+    private static final ResourceLocation UID = WPJutil.location("jei");
     public static IJeiRuntime jeiRuntime;
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime runtime) {
         jeiRuntime = runtime;
     }
-
-    private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(WariumPonderJei.MODID, "jei");
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -73,43 +62,21 @@ public class WariumJEI implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-        List<SmeltingRecipe> smelting = manager.getAllRecipesFor(RecipeType.SMELTING);
         RegistrationHelper helper = new RegistrationHelper(registration, manager);
-
+        List<SmeltingRecipe> smelting = manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.SMELTING);
         registration.addRecipes(ThermalFurnaceCategory.TYPE, smelting);
         registration.addRecipes(AssemblyFurnaceCategory.TYPE, smelting);
-        registration.addRecipes(
-            AssemblyCategory.TYPE,
-            manager.getAllRecipesFor(WariumpPonderJeiRecipes.ASSEMBLY_TYPE.get())
-        );
-        helper.addRecipes(MineralGrinderCategory.TYPE, WariumpPonderJeiRecipes.MINERAL_GRINDER_TYPE, MineralGrinderRecipe.STATIC_RECIPES);
-        helper.addRecipes(BlastFurnaceCategory.TYPE, WariumpPonderJeiRecipes.BLAST_FURNACE_TYPE, BlastFurnaceRecipe.STATIC_RECIPES);
-        helper.addRecipes(FoundryCategory.TYPE, WariumpPonderJeiRecipes.FOUNDRY_TYPE, FoundryRecipe.STATIC_RECIPES);
-        helper.addRecipes(RefineryCategory.TYPE, WariumpPonderJeiRecipes.REFINERY_TYPE, RefineryRecipe.STATIC_RECIPES);
-        helper.addRecipes(CrusherCategory.TYPE, WariumpPonderJeiRecipes.CRUSHER_TYPE, CrusherRecipe.STATIC_RECIPES);
-        helper.addRecipes(DigesterCategory.TYPE, WariumpPonderJeiRecipes.DIGESTER_TYPE, DigesterRecipe.STATIC_RECIPES);
-        helper.addRecipes(FabricatorCategory.MECHANICAL_TYPE, WariumpPonderJeiRecipes.MECHANICAL_FABRICATOR_TYPE, MechanicalFabricatorRecipe.STATIC_RECIPES);
-        helper.addRecipes(FabricatorCategory.CIRCUIT_TYPE, WariumpPonderJeiRecipes.CIRCUIT_FABRICATOR_TYPE, CircuitFabricatorRecipe.STATIC_RECIPES);
-        helper.addRecipes(CentrifugeCategory.TYPE, WariumpPonderJeiRecipes.CENTRIFUGE_TYPE, CentrifugeRecipe.STATIC_RECIPES);
-        helper.addRecipes(BreederReactorCategory.TYPE, WariumpPonderJeiRecipes.BREEDER_REACTOR_TYPE, BreederReactorRecipe.STATIC_RECIPES);
-    }
-
-    private static class RegistrationHelper {
-        private final IRecipeRegistration registration;
-        private final RecipeManager manager;
-
-        private RegistrationHelper(IRecipeRegistration registration, RecipeManager manager) {
-            this.registration = registration;
-            this.manager = NetworkHandler.serverHasMod ? manager : null;
-        }
-
-        private <C extends Container, T extends Recipe<C>> void addRecipes(
-            mezz.jei.api.recipe.RecipeType<T> jeiType,
-            Supplier<? extends RecipeType<T>> type,
-            List<T> list
-        ) {
-           this.registration.addRecipes(jeiType, manager == null ? list : manager.getAllRecipesFor(type.get()));
-        }
+        helper.addRecipes(AssemblyCategory.TYPE, ASSEMBLY);
+        helper.addRecipes(MineralGrinderCategory.TYPE, MINERAL_GRINDER);
+        helper.addRecipes(BlastFurnaceCategory.TYPE, BLAST_FURNACE);
+        helper.addRecipes(FoundryCategory.TYPE, FOUNDRY);
+        helper.addRecipes(RefineryCategory.TYPE, REFINERY);
+        helper.addRecipes(CrusherCategory.TYPE, CRUSHER);
+        helper.addRecipes(DigesterCategory.TYPE, DIGESTER);
+        helper.addRecipes(FabricatorCategory.MECHANICAL_TYPE, MECHANICAL_FABRICATOR);
+        helper.addRecipes(FabricatorCategory.CIRCUIT_TYPE, CIRCUIT_FABRICATOR);
+        helper.addRecipes(CentrifugeCategory.TYPE, CENTRIFUGE);
+        helper.addRecipes(BreederReactorCategory.TYPE, BREEDER_REACTOR);
     }
 
     @Override
@@ -178,5 +145,12 @@ public class WariumJEI implements IModPlugin {
             FabricatorCategory.CIRCUIT_TYPE,
             CrustyChunksModItems.ASSEMBLY_CIRCUIT_FABRICATOR.get()
         );
+    }
+
+    private record RegistrationHelper(IRecipeRegistration registration, RecipeManager manager) {
+
+        <T extends Recipe<Container>> void addRecipes(RecipeType<T> type, RecipeRegistry<T> recipe) {
+           this.registration.addRecipes(type, this.manager.getAllRecipesFor(recipe.type()));
+        }
     }
 }

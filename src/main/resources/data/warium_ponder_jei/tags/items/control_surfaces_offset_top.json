@@ -1,0 +1,21 @@
+{
+  "values": [
+    "valkyrien_warium:control_surface_offset_top",
+    "valkyrien_warium:control_surface_offset_top_dark_gray",
+    "valkyrien_warium:green_control_surface_offset_top",
+    "valkyrien_warium:yellow_control_surface_offset_top",
+    "valkyrien_warium:brown_control_surface_offset_top",
+    "valkyrien_warium:white_control_surface_offset_top",
+    "valkyrien_warium:red_control_surface_offset_top",
+    "valkyrien_warium:black_control_surface_offset_top",
+    "valkyrien_warium:cyan_control_surface_offset_top",
+    "valkyrien_warium:blue_control_surface_offset_top",
+    "valkyrien_warium:orange_control_surface_offset_top",
+    "valkyrien_warium:gray_control_surface_offset_top",
+    "valkyrien_warium:light_gray_control_surface_offset_top",
+    "valkyrien_warium:light_blue_control_surface_offset_top",
+    "valkyrien_warium:pink_control_surface_offset_top",
+    "valkyrien_warium:magenta_control_surface_offset_top",
+    "valkyrien_warium:purple_control_surface_offset_top"
+  ]
+}

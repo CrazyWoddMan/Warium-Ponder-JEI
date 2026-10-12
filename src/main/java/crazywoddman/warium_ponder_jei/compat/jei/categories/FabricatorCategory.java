@@ -16,18 +16,18 @@ import java.util.function.Supplier;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.DurationalAssemblyRecipe;
 import crazywoddman.warium_ponder_jei.data.recipes.CircuitFabricatorRecipe;
 import crazywoddman.warium_ponder_jei.data.recipes.MechanicalFabricatorRecipe;
 
 public class FabricatorCategory<T extends DurationalAssemblyRecipe> extends StructuredRecipeCategory<T> {
     public static final RecipeType<MechanicalFabricatorRecipe> MECHANICAL_TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.MECHANICAL_FABRICATOR_TYPE.getId(),
+        WPJrecipes.MECHANICAL_FABRICATOR.getId(),
         MechanicalFabricatorRecipe.class
     );
     public static final RecipeType<CircuitFabricatorRecipe> CIRCUIT_TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.CIRCUIT_FABRICATOR_TYPE.getId(),
+        WPJrecipes.CIRCUIT_FABRICATOR.getId(),
         CircuitFabricatorRecipe.class
     );
 

@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:aluminum_plating_trapdoors"
+  },
+  "clear": "crusty_chunks:aluminum_plating_trapdoor",
+  "result": "crusty_chunks:aluminum_plating_trapdoor_%s"
+}

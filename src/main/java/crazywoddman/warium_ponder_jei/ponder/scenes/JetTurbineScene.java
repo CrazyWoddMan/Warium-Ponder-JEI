@@ -3,9 +3,9 @@ package crazywoddman.warium_ponder_jei.ponder.scenes;
 import java.util.stream.Stream;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
-import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAccessor;
 import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
 import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
+import crazywoddman.warium_ponder_jei.utils.WPJutil;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
 import net.mcreator.crustychunks.init.CrustyChunksModBlocks;
@@ -116,7 +116,7 @@ public class JetTurbineScene extends AbstractScene {
             "Jet Turbine generates %d units of Kinetic Power",
             80,
             2.5, 1.5, 1,
-            WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getTurbinePower() : 51
+            WPJutil.getTurbinePower()
         );
 
         if (!WariumPonderJei.WARIUM_VS)

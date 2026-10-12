@@ -11,6 +11,11 @@
 	"warium_ponder_jei.jei.category.centrifuge": "Assembly Centrifuge",
 	"warium_ponder_jei.jei.category.reactor": "Breeder Reactor",
 
+	"warium_ponder_jei.config.not_in_world": "§6This config is world-specific. Enter a world to edit its config",
+	"warium_ponder_jei.config.no_permissions": "§cNot enough permissions to edit this world's config",
+	"warium_ponder_jei.config.machinesMinPower": "Machines minimal KineticPower",
+	"warium_ponder_jei.config.heatRequirement": "Furnaces minimal heat",
+
 	"fluid_type.crusty_chunks.diesel": "Diesel",
 	"fluid_type.crusty_chunks.kerosene": "Kerosene",
 	"fluid_type.crusty_chunks.oil": "Oil",

@@ -1,19 +1,15 @@
 package crazywoddman.warium_ponder_jei.data.recipes;
 
-import java.util.function.Supplier;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 
 public abstract class SimpleRecipe<T> extends AbstractRecipe {
     public final Ingredient[] ingredients;
     public final T result;
 
-    public SimpleRecipe(ResourceLocation id, Supplier<? extends RecipeSerializer<?>> serializer, Supplier<? extends RecipeType<?>> type, T result, Ingredient... ingredients) {
-        super(id, serializer, type);
+    public SimpleRecipe(ResourceLocation id, T result, Ingredient... ingredients) {
+        super(id);
         this.ingredients = ingredients;
         this.result = result;
     }

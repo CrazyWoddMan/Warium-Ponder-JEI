@@ -1,8 +1,8 @@
 package crazywoddman.warium_ponder_jei.compat.jei.categories;
 
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import crazywoddman.warium_ponder_jei.data.WariumpjTags;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
+import crazywoddman.warium_ponder_jei.data.WPJtags;
 import crazywoddman.warium_ponder_jei.data.recipes.MineralGrinderRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class MineralGrinderCategory implements IRecipeCategory<MineralGrinderRecipe> {
     public static final RecipeType<MineralGrinderRecipe> TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.MINERAL_GRINDER_TYPE.getId(),
+        WPJrecipes.MINERAL_GRINDER.getId(),
         MineralGrinderRecipe.class
     );
     private final IDrawable background;
@@ -67,7 +67,7 @@ public class MineralGrinderCategory implements IRecipeCategory<MineralGrinderRec
     public void setRecipe(IRecipeLayoutBuilder builder, MineralGrinderRecipe recipe, IFocusGroup focuses) {
         builder
         .addInputSlot(21, 21)
-        .addIngredients(Ingredient.of(WariumpjTags.Items.CRUSHING_WHEELS))
+        .addIngredients(Ingredient.of(WPJtags.Items.CRUSHING_WHEELS))
         .addTooltipCallback((view, tooltip) ->
             tooltip.add(1, Component.literal("Loses 1 durability point").withStyle(ChatFormatting.GOLD))
         );

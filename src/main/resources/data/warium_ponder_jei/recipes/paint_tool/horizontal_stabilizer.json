@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:horizontal_stabilizers"
+  },
+  "clear": "valkyrien_warium:horizontal_stabilizer",
+  "result": "wariumtactics:%s_horizontal_stabilizer"
+}

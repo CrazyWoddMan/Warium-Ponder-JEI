@@ -1,43 +1,33 @@
 package crazywoddman.warium_ponder_jei.network;
 
-import crazywoddman.warium_ponder_jei.WariumPonderJei;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import java.util.function.Function;
+
+import crazywoddman.warium_ponder_jei.utils.WPJutil;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-@EventBusSubscriber(modid = WariumPonderJei.MODID, bus = EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class NetworkHandler {
     private static final String PROTOCOL_VERSION = "1";
-    public static boolean serverHasMod;
+    private static int packetId = 0;
+
     protected static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-        ResourceLocation.fromNamespaceAndPath(WariumPonderJei.MODID, "main"),
+        WPJutil.location("main"),
         () -> PROTOCOL_VERSION,
-        version -> {
-            if (compare(version)) {
-                serverHasMod = true;
-                return true;
-            }
-            return acceptAbsent(version);
-        },
-        version -> compare(version) || acceptAbsent(version)
+        PROTOCOL_VERSION::equals,
+        PROTOCOL_VERSION::equals
     );
-
-    private static boolean compare(String version) {
-        return PROTOCOL_VERSION.equals(version);
-    }
-
-    private static boolean acceptAbsent(String version) {
-        return NetworkRegistry.ABSENT.version().equals(version);
-    }
     
-    public static void register() {}
+    public static void register() {
+        register(ConfigSyncPacket.class, ConfigSyncPacket::decode, NetworkDirection.PLAY_TO_SERVER);
+    }
 
-    @SubscribeEvent
-    public static final void onLoggingOut(LoggingOut event) {
-        serverHasMod = false;
+    private static <T extends Packet> void register(Class<T> clazz, Function<FriendlyByteBuf, T> decoder, NetworkDirection direction) {
+        CHANNEL.messageBuilder(clazz, packetId++, direction)
+            .encoder(Packet::encode)
+            .decoder(decoder)
+            .consumerMainThread((packet, context) -> packet.handle(context))
+            .add();
     }
 }

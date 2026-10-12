@@ -7,11 +7,11 @@ import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.resources.ResourceLocation;
 import net.mcreator.crustychunks.init.CrustyChunksModItems;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.BlastFurnaceRecipe;
 
 public class BlastFurnaceCategory extends StructuredRecipeCategory<BlastFurnaceRecipe> {
-    public static final RecipeType<BlastFurnaceRecipe> TYPE = new RecipeType<>(WariumpPonderJeiRecipes.BLAST_FURNACE_TYPE.getId(), BlastFurnaceRecipe.class);
+    public static final RecipeType<BlastFurnaceRecipe> TYPE = new RecipeType<>(WPJrecipes.BLAST_FURNACE.getId(), BlastFurnaceRecipe.class);
 
     public BlastFurnaceCategory(IGuiHelper guiHelper) {
         super(

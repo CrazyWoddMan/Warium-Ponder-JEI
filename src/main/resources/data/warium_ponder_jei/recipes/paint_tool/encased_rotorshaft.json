@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:encased_rotorshafts"
+  },
+  "clear": "valkyrien_warium:encased_rotorshaft",
+  "result": "wariumtactics:%s_encased_rotorshaft"
+}

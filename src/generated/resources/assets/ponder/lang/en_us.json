@@ -42,7 +42,7 @@
   "warium_ponder_jei.ponder.empty_missile_hardpoint.header": "Medium Rocket Hardpoint",
   "warium_ponder_jei.ponder.energy.header": "Energy",
   "warium_ponder_jei.ponder.energy.text_1": "%s converts Kinetic Power into Forge Energy",
-  "warium_ponder_jei.ponder.energy.text_2": "The ratio is 1.0 Kinetic Power to %f Forge Energy",
+  "warium_ponder_jei.ponder.energy.text_2": "The ratio is 1:1",
   "warium_ponder_jei.ponder.energy.text_3": "You can then convert energy back to Kinetic Power using %s",
   "warium_ponder_jei.ponder.energy.text_4": "Or store it in %s",
   "warium_ponder_jei.ponder.engines.header": "Small Engines",

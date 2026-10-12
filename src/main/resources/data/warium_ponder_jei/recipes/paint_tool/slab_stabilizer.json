@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:slab_stabilizers"
+  },
+  "clear": "valkyrien_warium:slab_stabilizer",
+  "result": "wariumtactics:%s_slab_stabilizer"
+}

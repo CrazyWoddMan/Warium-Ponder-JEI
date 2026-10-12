@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:vertical_stabilizers"
+  },
+  "clear": "valkyrien_warium:vertical_wing",
+  "result": "wariumtactics:%s_vertical_stabilizer"
+}

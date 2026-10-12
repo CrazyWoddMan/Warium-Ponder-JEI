@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:aluminum_ac_barrels"
+  },
+  "clear": "crusty_chunks:aluminum_ac_barrel",
+  "result": "crusty_chunks:aluminum_ac_barrel_%s"
+}

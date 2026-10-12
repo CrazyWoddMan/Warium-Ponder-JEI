@@ -3,10 +3,9 @@ package crazywoddman.warium_ponder_jei.ponder.scenes;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import crazywoddman.warium_ponder_jei.WariumPonderJei;
-import crazywoddman.warium_ponder_jei.compat.warium_additions.WariumAdditionsAccessor;
 import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
 import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
+import crazywoddman.warium_ponder_jei.utils.WPJutil;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
 import net.mcreator.crustychunks.init.CrustyChunksModBlocks;
@@ -99,11 +98,11 @@ public class EngineScene extends AbstractScene {
             2.5, 1.5, 2,
             engine.getName(),
             switch (engine) {
-                case MEDIUM_DIESEL -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getMDEpower() : 50;
-                case SMALL_DIESEL -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getSDEpower() : 35;
-                case MEDIUM_PETROL -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getMPEpower() : 60;
-                case SMALL_PETROL -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getSPEpower() : 40;
-                case LIGHT_TURBINE -> WariumPonderJei.WARIUM_ADDITIONS ? WariumAdditionsAccessor.getLTEpower() : 65;
+                case MEDIUM_DIESEL -> WPJutil.getMDEpower();
+                case SMALL_DIESEL -> WPJutil.getSDEpower();
+                case MEDIUM_PETROL -> WPJutil.getMPEpower();
+                case SMALL_PETROL -> WPJutil.getSPEpower();
+                case LIGHT_TURBINE -> WPJutil.getLTEpower();
             }
         );
     }

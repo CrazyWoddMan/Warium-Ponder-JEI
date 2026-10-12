@@ -3,7 +3,8 @@ package crazywoddman.warium_ponder_jei.data.recipes;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.RecipeRegistry;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -18,25 +19,26 @@ public class AssemblyRecipe extends SimpleRecipe<Item> {
     public final int runs;
 
     public AssemblyRecipe(ResourceLocation id, Ingredient item, Ingredient process, Item result, int runs) {
-        super(id, WariumpPonderJeiRecipes.ASSEMBLY_SERIALIZER, WariumpPonderJeiRecipes.ASSEMBLY_TYPE, result, item, process);
+        super(id, result, item, process);
         this.runs = runs;
+    }
+
+    @Override
+    protected RecipeRegistry<?> getRegistry() {
+        return WPJrecipes.ASSEMBLY;
     }
 
     public static class Serializer implements RecipeSerializer<AssemblyRecipe> {
 
         @Override
         public AssemblyRecipe fromJson(ResourceLocation id, JsonObject json) {
-            try {
-                return new AssemblyRecipe(
-                    id,
-                    parseIngredient(json, "item"),
-                    parseIngredient(json, "process"),
-                    GsonHelper.getAsItem(json, "result"),
-                    GsonHelper.getAsInt(json, "runs", 1)
-                );
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to parse assembly recipe [" + id + "]", e);
-            }
+            return new AssemblyRecipe(
+                id,
+                parseIngredient(json, "item"),
+                parseIngredient(json, "process"),
+                GsonHelper.getAsItem(json, "result"),
+                GsonHelper.getAsInt(json, "runs", 1)
+            );
         }
 
         private Ingredient parseIngredient(JsonObject json, String name) {

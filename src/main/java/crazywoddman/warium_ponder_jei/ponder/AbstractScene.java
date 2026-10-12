@@ -2,10 +2,12 @@ package crazywoddman.warium_ponder_jei.ponder;
 
 import java.util.function.Supplier;
 
+import crazywoddman.warium_ponder_jei.config.WPJconfig;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.registries.RegistryObject;
 
 public abstract class AbstractScene {
@@ -55,5 +57,9 @@ public abstract class AbstractScene {
 
     protected static String getName(Fluid fluid) {
         return fluid.getFluidType().getDescription().getString();
+    }
+
+    protected static <T> T getSafe(ConfigValue<T> value) {
+        return WPJconfig.SPEC.isLoaded() ? value.get() : value.getDefault();
     }
 }

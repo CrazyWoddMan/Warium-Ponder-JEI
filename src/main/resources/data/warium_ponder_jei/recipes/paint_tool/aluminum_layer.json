@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "warium_extras"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:aluminum_layers"
+  },
+  "clear": "warium_extras:aluminum_layer",
+  "result": "warium_extras:aluminum_layer_%s"
+}

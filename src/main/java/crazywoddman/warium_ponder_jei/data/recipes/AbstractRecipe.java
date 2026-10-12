@@ -1,7 +1,6 @@
 package crazywoddman.warium_ponder_jei.data.recipes;
 
-import java.util.function.Supplier;
-
+import crazywoddman.warium_ponder_jei.data.RecipeRegistry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -13,13 +12,21 @@ import net.minecraft.world.level.Level;
 
 public abstract class AbstractRecipe implements Recipe<Container> {
     public final ResourceLocation id;
-    private final RecipeSerializer<?> serializer;
-    private final RecipeType<?> type;
 
-    public AbstractRecipe(ResourceLocation id, Supplier<? extends RecipeSerializer<?>> serializer, Supplier<? extends RecipeType<?>> type) {
+    public AbstractRecipe(ResourceLocation id) {
         this.id = id;
-        this.serializer = serializer.get();
-        this.type = type.get();
+    }
+
+    protected abstract RecipeRegistry<?> getRegistry();
+
+    @Override
+    public RecipeType<?> getType() {
+        return getRegistry().type();
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return getRegistry().serializer();
     }
 
     @Override
@@ -45,15 +52,5 @@ public abstract class AbstractRecipe implements Recipe<Container> {
     @Override
     public ResourceLocation getId() {
         return id;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return serializer;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return type;
     }
 }

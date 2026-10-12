@@ -12,11 +12,11 @@ import net.minecraft.ChatFormatting;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.FoundryRecipe;
 
 public class FoundryCategory extends StructuredRecipeCategory<FoundryRecipe> {
-    public static final RecipeType<FoundryRecipe> TYPE = new RecipeType<>(WariumpPonderJeiRecipes.FOUNDRY_TYPE.getId(), FoundryRecipe.class);
+    public static final RecipeType<FoundryRecipe> TYPE = new RecipeType<>(WPJrecipes.FOUNDRY.getId(), FoundryRecipe.class);
     private final IDrawable input;
     private final IDrawable output;
 

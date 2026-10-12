@@ -13,12 +13,12 @@ import net.mcreator.crustychunks.init.CrustyChunksModItems;
 
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.CentrifugeRecipe;
 
 public class CentrifugeCategory extends StructuredRecipeCategory<CentrifugeRecipe> {
     public static final RecipeType<CentrifugeRecipe> TYPE = new RecipeType<>(
-        WariumpPonderJeiRecipes.CENTRIFUGE_TYPE.getId(),
+        WPJrecipes.CENTRIFUGE.getId(),
         CentrifugeRecipe.class
     );
 

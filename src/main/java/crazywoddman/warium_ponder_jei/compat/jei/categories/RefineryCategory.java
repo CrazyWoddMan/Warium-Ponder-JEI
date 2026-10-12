@@ -11,11 +11,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import crazywoddman.warium_ponder_jei.WariumPonderJei;
 import crazywoddman.warium_ponder_jei.compat.jei.StructuredRecipeCategory;
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import crazywoddman.warium_ponder_jei.data.recipes.RefineryRecipe;
 
 public class RefineryCategory extends StructuredRecipeCategory<RefineryRecipe> {
-    public static final RecipeType<RefineryRecipe> TYPE = new RecipeType<>(WariumpPonderJeiRecipes.REFINERY_TYPE.getId(), RefineryRecipe.class);
+    public static final RecipeType<RefineryRecipe> TYPE = new RecipeType<>(WPJrecipes.REFINERY.getId(), RefineryRecipe.class);
 
     public RefineryCategory(IGuiHelper guiHelper) {
         super(

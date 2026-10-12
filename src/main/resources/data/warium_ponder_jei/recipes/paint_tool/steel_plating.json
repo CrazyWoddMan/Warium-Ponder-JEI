@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:steel_plating"
+  },
+  "clear": "crusty_chunks:steel_plating",
+  "result": "crusty_chunks:%s_armor"
+}

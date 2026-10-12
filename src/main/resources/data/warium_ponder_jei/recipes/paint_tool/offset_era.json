@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "wariumtactics"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:offset_eras"
+  },
+  "clear": "wariumtactics:offset_era_steel",
+  "result": "wariumtactics:offset_era_%s"
+}

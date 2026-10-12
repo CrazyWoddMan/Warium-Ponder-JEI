@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:aluminum_plating_stairs"
+  },
+  "clear": "crusty_chunks:aluminum_plating_stairs",
+  "result": "crusty_chunks:aluminum_plating_stairs_%s"
+}

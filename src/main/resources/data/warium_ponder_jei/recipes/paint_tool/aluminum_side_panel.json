@@ -1,0 +1,8 @@
+{
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:aluminum_side_panels"
+  },
+  "clear": "crusty_chunks:aluminum_side_panel",
+  "result": "crusty_chunks:aluminum_side_panel_%s"
+}

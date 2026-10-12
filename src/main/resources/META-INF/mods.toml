@@ -29,7 +29,7 @@ license="MIT"
 
 [[dependencies.${mod_id}]]
     modId="crusty_chunks"
-    mandatory=true 
+    mandatory=true
     versionRange="*"
     ordering="AFTER"
     side="BOTH"

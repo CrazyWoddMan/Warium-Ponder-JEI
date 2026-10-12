@@ -1,12 +1,9 @@
 package crazywoddman.warium_ponder_jei.data.recipes;
 
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.google.gson.JsonObject;
 
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
-import net.mcreator.crustychunks.init.CrustyChunksModItems;
+import crazywoddman.warium_ponder_jei.data.RecipeRegistry;
+import crazywoddman.warium_ponder_jei.data.WPJrecipes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -19,7 +16,7 @@ public class BreederReactorRecipe extends SimpleRecipe<Item> implements IDuratio
     public final int processtime;
 
     public BreederReactorRecipe(ResourceLocation id, Ingredient ingredient, int processtime, Item result) {
-        super(id, WariumpPonderJeiRecipes.BREEDER_REACTOR_SERIALIZER, WariumpPonderJeiRecipes.BREEDER_REACTOR_TYPE, result, ingredient);
+        super(id, result, ingredient);
         this.processtime = processtime;
     }
 
@@ -33,20 +30,28 @@ public class BreederReactorRecipe extends SimpleRecipe<Item> implements IDuratio
         return new Item[]{this.result};
     }
 
+    @Override
+    protected RecipeRegistry<?> getRegistry() {
+        return WPJrecipes.BREEDER_REACTOR;
+    }
+
     public static class Serializer implements RecipeSerializer<BreederReactorRecipe> {
 
         @Override
         public BreederReactorRecipe fromJson(ResourceLocation id, JsonObject json) {
-            try {
-                return new BreederReactorRecipe(
-                    id,
-                    Ingredient.fromJson(json.get("ingredient")),
-                    GsonHelper.getAsInt(json, "processtime"),
-                    GsonHelper.getAsItem(json, "result")
-                );
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to parse breeder reactor recipe [" + id + "]", e);
-            }
+            return new BreederReactorRecipe(
+                id,
+                Ingredient.fromJson(json.get("ingredient")),
+                GsonHelper.getAsInt(json, "processtime"),
+                GsonHelper.getAsItem(json, "result")
+            );
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, BreederReactorRecipe recipe) {
+            recipe.ingredients[0].toNetwork(buffer);
+            buffer.writeVarInt(recipe.processtime);
+            buffer.writeItem(new ItemStack(recipe.result));
         }
 
         @Override
@@ -58,29 +63,5 @@ public class BreederReactorRecipe extends SimpleRecipe<Item> implements IDuratio
                 buffer.readItem().getItem()
             );
         }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, BreederReactorRecipe recipe) {
-            recipe.ingredients[0].toNetwork(buffer);
-            buffer.writeVarInt(recipe.processtime);
-            buffer.writeItem(new ItemStack(recipe.result));
-        }
     }
-
-    protected static BreederReactorRecipe of(Supplier<Item> ingredient, Supplier<Item> result) {
-        return new BreederReactorRecipe(
-            null,
-            Ingredient.of(ingredient.get()),
-            400,
-            result.get()
-        );
-    }
-
-    /**
-     * Used if this mod is in <b>client-side</b> mode
-     */
-    public static final List<BreederReactorRecipe> STATIC_RECIPES = List.of(
-        of(CrustyChunksModItems.URANIUM_ENRICHED_DUST, CrustyChunksModItems.PLUTONIUM_NUGGET),
-        of(CrustyChunksModItems.ENRICHED_LITHIUM_INGOT, CrustyChunksModItems.TINY_LITHIUM_DEUTERIDE)
-    );
 }

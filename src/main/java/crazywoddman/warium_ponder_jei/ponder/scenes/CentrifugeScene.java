@@ -1,6 +1,6 @@
 package crazywoddman.warium_ponder_jei.ponder.scenes;
 
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.config.WPJconfig;
 import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
 import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
 import net.mcreator.crustychunks.init.CrustyChunksModBlocks;
@@ -61,7 +61,7 @@ public class CentrifugeScene extends AbstractScene {
         helper.showTextAt("Centrifuge requires %d untis of Kinetic Power to work",
             30 + EngineScene.EngineType.values().length * 25,
             2, 2.5, 2.5,
-            WariumpPonderJeiRecipes.MACHINES_KINETIC_REQUIRE.getAsInt()
+            getSafe(WPJconfig.MACHINES_POWER)
         ).attachKeyFrame();
 
         helper.idle(30);

@@ -1,0 +1,14 @@
+{
+  "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "valkyrien_warium"
+      }
+  ],
+  "type": "warium_ponder_jei:paint_tool",
+  "paintable": {
+    "tag": "warium_ponder_jei:vertical_control_surfaces"
+  },
+  "clear": "valkyrien_warium:vertical_control_surface",
+  "result": "valkyrien_warium:%s_vertical_control_surface"
+}

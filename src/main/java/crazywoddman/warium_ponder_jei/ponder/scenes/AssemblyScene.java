@@ -2,7 +2,7 @@ package crazywoddman.warium_ponder_jei.ponder.scenes;
 
 import java.util.function.Supplier;
 
-import crazywoddman.warium_ponder_jei.data.WariumpPonderJeiRecipes;
+import crazywoddman.warium_ponder_jei.config.WPJconfig;
 import crazywoddman.warium_ponder_jei.ponder.AbstractScene;
 import crazywoddman.warium_ponder_jei.ponder.SceneHelper;
 import net.createmod.catnip.math.Pointing;
@@ -114,7 +114,7 @@ public class AssemblyScene extends AbstractScene {
                 30 + EngineScene.EngineType.values().length * 25,
                 2, powerY + 0.5, 2.5,
                 type.getName(),
-                WariumpPonderJeiRecipes.MACHINES_KINETIC_REQUIRE.getAsInt()
+                getSafe(WPJconfig.MACHINES_POWER)
             ).attachKeyFrame();
 
             helper.idle(30);
